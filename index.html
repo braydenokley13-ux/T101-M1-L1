@@ -17,32 +17,35 @@
             background: linear-gradient(135deg, #006BB6 0%, #003d7a 100%);
             color: #fff;
             min-height: 100vh;
-            overflow-x: hidden;
         }
 
-        /* Landing Page Styles */
-        .landing-page {
+        .page {
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        /* ========== LANDING PAGE ========== */
+        #landingPage {
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            min-height: 100vh;
-            padding: 20px;
             position: relative;
             overflow: hidden;
         }
 
-        .landing-page::before {
+        #landingPage::before {
             content: '';
             position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
+            width: 100%;
+            height: 100%;
             background: url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><circle cx="50" cy="50" r="40" fill="none" stroke="%23F58426" stroke-width="2" opacity="0.1"/></svg>');
             background-size: 100px 100px;
             animation: float 20s linear infinite;
-            pointer-events: none;
         }
 
         @keyframes float {
@@ -50,7 +53,7 @@
             to { transform: translateY(-100px); }
         }
 
-        .bow-sports-header {
+        .bow-header {
             background: rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(10px);
             padding: 15px 30px;
@@ -58,6 +61,7 @@
             margin-bottom: 20px;
             border: 2px solid rgba(245, 132, 38, 0.3);
             animation: glow 2s ease-in-out infinite;
+            z-index: 1;
         }
 
         @keyframes glow {
@@ -65,7 +69,7 @@
             50% { box-shadow: 0 0 40px rgba(245, 132, 38, 0.6); }
         }
 
-        .bow-sports-header h1 {
+        .bow-header h1 {
             font-family: 'Bebas Neue', sans-serif;
             font-size: 2em;
             color: #F58426;
@@ -73,7 +77,7 @@
             letter-spacing: 2px;
         }
 
-        .hero-section {
+        .hero {
             text-align: center;
             max-width: 900px;
             z-index: 1;
@@ -83,20 +87,7 @@
             font-family: 'Bebas Neue', sans-serif;
             font-size: 4em;
             margin-bottom: 10px;
-            color: #fff;
             text-shadow: 4px 4px 8px rgba(0, 0, 0, 0.5);
-            animation: slideDown 0.8s ease-out;
-        }
-
-        @keyframes slideDown {
-            from {
-                opacity: 0;
-                transform: translateY(-50px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
         }
 
         .subtitle {
@@ -106,7 +97,7 @@
             font-weight: 600;
         }
 
-        .knicks-logo {
+        .basketball {
             font-size: 6em;
             margin: 20px 0;
             animation: bounce 2s infinite;
@@ -117,7 +108,7 @@
             50% { transform: translateY(-20px); }
         }
 
-        .rules-container {
+        .rules-box {
             background: rgba(255, 255, 255, 0.95);
             color: #333;
             padding: 40px;
@@ -125,21 +116,9 @@
             margin: 30px auto;
             max-width: 800px;
             box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
-            animation: fadeIn 1s ease-out;
         }
 
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: scale(0.9);
-            }
-            to {
-                opacity: 1;
-                transform: scale(1);
-            }
-        }
-
-        .rules-container h2 {
+        .rules-box h2 {
             font-family: 'Bebas Neue', sans-serif;
             font-size: 2.5em;
             color: #006BB6;
@@ -147,7 +126,7 @@
             text-align: center;
         }
 
-        .rule-item {
+        .rule {
             display: flex;
             align-items: center;
             margin: 20px 0;
@@ -155,14 +134,9 @@
             background: linear-gradient(135deg, #f0f8ff 0%, #e6f3ff 100%);
             border-radius: 10px;
             border-left: 5px solid #F58426;
-            transition: transform 0.3s;
         }
 
-        .rule-item:hover {
-            transform: translateX(10px);
-        }
-
-        .rule-number {
+        .rule-num {
             font-family: 'Bebas Neue', sans-serif;
             font-size: 3em;
             color: #006BB6;
@@ -180,7 +154,7 @@
             font-weight: 700;
         }
 
-        .important-box {
+        .mission-box {
             background: #FFF3E0;
             border: 3px dashed #F58426;
             padding: 20px;
@@ -189,15 +163,15 @@
             text-align: center;
         }
 
-        .important-box h3 {
+        .mission-box h3 {
             font-family: 'Bebas Neue', sans-serif;
             font-size: 2em;
             color: #006BB6;
             margin-bottom: 10px;
         }
 
-        .important-box p {
-            font-size: 1.2em;
+        .mission-box p {
+            font-size: 1.1em;
             color: #333;
             font-weight: 600;
         }
@@ -222,39 +196,30 @@
             box-shadow: 0 15px 40px rgba(245, 132, 38, 0.6);
         }
 
-        .start-btn:active {
-            transform: translateY(-2px);
-        }
-
-        /* Game Page Styles */
-        .game-page {
-            display: block;
-            padding: 20px;
+        /* ========== GAME PAGE ========== */
+        #gamePage {
             max-width: 1400px;
             margin: 0 auto;
-            min-height: 100vh;
         }
 
         .game-header {
             text-align: center;
-            margin-bottom: 30px;
             background: rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(10px);
             padding: 20px;
             border-radius: 20px;
+            margin-bottom: 30px;
         }
 
         .game-header h1 {
             font-family: 'Bebas Neue', sans-serif;
             font-size: 3em;
             color: #F58426;
-            margin-bottom: 5px;
         }
 
-        .game-header .powered-by {
+        .powered-by {
             font-size: 1em;
-            color: #fff;
-            opacity: 0.8;
+            opacity: 0.9;
         }
 
         /* Dashboard */
@@ -266,16 +231,11 @@
         }
 
         .stat-card {
-            background: rgba(255, 255, 255, 0.95);
+            background: white;
             padding: 20px;
             border-radius: 15px;
             text-align: center;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-            transition: transform 0.3s;
-        }
-
-        .stat-card:hover {
-            transform: translateY(-5px);
         }
 
         .stat-card h3 {
@@ -291,12 +251,9 @@
             color: #333;
         }
 
-        .stat-value.stars::after {
-            content: ' ⭐';
-        }
-
-        .stat-value.players::after {
-            content: ' 👥';
+        .stat-card p {
+            color: #666;
+            margin-top: 5px;
         }
 
         .progress-bar {
@@ -306,7 +263,6 @@
             border-radius: 15px;
             overflow: hidden;
             margin-top: 10px;
-            position: relative;
         }
 
         .progress-fill {
@@ -317,9 +273,6 @@
             justify-content: center;
             color: white;
             font-weight: 700;
-        }
-
-        .progress-safe {
             background: linear-gradient(90deg, #4CAF50 0%, #66BB6A 100%);
         }
 
@@ -331,7 +284,30 @@
             background: linear-gradient(90deg, #f44336 0%, #ef5350 100%);
         }
 
-        /* Players Grid */
+        /* Hint Box */
+        .hint-box {
+            background: rgba(255, 243, 224, 0.95);
+            border: 3px solid #F58426;
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .hint-box h3 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.8em;
+            color: #006BB6;
+            margin-bottom: 10px;
+        }
+
+        .hint-box p {
+            font-size: 1.1em;
+            color: #333;
+            font-weight: 600;
+        }
+
+        /* Section Titles */
         .section-title {
             font-family: 'Bebas Neue', sans-serif;
             font-size: 2.5em;
@@ -341,6 +317,7 @@
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
         }
 
+        /* Players Grid */
         .players-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -356,7 +333,6 @@
             transition: all 0.3s;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
             position: relative;
-            overflow: hidden;
         }
 
         .player-card::before {
@@ -367,6 +343,7 @@
             right: 0;
             height: 5px;
             background: linear-gradient(90deg, #006BB6 0%, #F58426 100%);
+            border-radius: 15px 15px 0 0;
         }
 
         .player-card:hover {
@@ -377,7 +354,6 @@
         .player-card.selected {
             background: linear-gradient(135deg, #FFF3E0 0%, #FFE0B2 100%);
             border: 3px solid #F58426;
-            box-shadow: 0 10px 30px rgba(245, 132, 38, 0.6);
         }
 
         .player-card.selected::after {
@@ -397,17 +373,23 @@
             font-weight: bold;
         }
 
+        .star-badge {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            font-size: 2em;
+        }
+
         .player-avatar {
             width: 80px;
             height: 80px;
             background: linear-gradient(135deg, #006BB6 0%, #F58426 100%);
             border-radius: 50%;
-            margin: 0 auto 15px auto;
+            margin: 0 auto 15px;
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 2.5em;
-            color: white;
             border: 4px solid white;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
         }
@@ -416,8 +398,8 @@
             font-family: 'Bebas Neue', sans-serif;
             font-size: 1.8em;
             color: #006BB6;
-            margin-bottom: 5px;
             text-align: center;
+            margin-bottom: 5px;
         }
 
         .player-position {
@@ -435,8 +417,8 @@
             font-size: 2em;
             font-weight: 700;
             color: #4CAF50;
-            margin: 10px 0;
             text-align: center;
+            margin: 10px 0;
         }
 
         .player-info {
@@ -453,50 +435,8 @@
             font-style: italic;
         }
 
-        .star-badge {
-            position: absolute;
-            top: 15px;
-            left: 15px;
-            font-size: 2em;
-            animation: spin 3s linear infinite;
-        }
-
-        @keyframes spin {
-            0%, 100% { transform: rotate(-10deg); }
-            50% { transform: rotate(10deg); }
-        }
-
-        /* Hints and Feedback */
-        .hint-box {
-            background: rgba(255, 243, 224, 0.95);
-            border: 3px solid #F58426;
-            border-radius: 15px;
-            padding: 20px;
-            margin: 20px 0;
-            text-align: center;
-            animation: pulse 2s ease-in-out infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.02); }
-        }
-
-        .hint-box h3 {
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: 1.8em;
-            color: #006BB6;
-            margin-bottom: 10px;
-        }
-
-        .hint-box p {
-            font-size: 1.1em;
-            color: #333;
-            font-weight: 600;
-        }
-
         /* Action Buttons */
-        .action-buttons {
+        .actions {
             display: flex;
             gap: 20px;
             justify-content: center;
@@ -515,24 +455,24 @@
             letter-spacing: 1px;
         }
 
-        .btn-primary {
+        .btn-check {
             background: linear-gradient(135deg, #4CAF50 0%, #66BB6A 100%);
             color: white;
             box-shadow: 0 5px 15px rgba(76, 175, 80, 0.4);
         }
 
-        .btn-primary:hover {
+        .btn-check:hover {
             transform: translateY(-5px);
             box-shadow: 0 10px 25px rgba(76, 175, 80, 0.6);
         }
 
-        .btn-secondary {
+        .btn-reset {
             background: linear-gradient(135deg, #757575 0%, #9E9E9E 100%);
             color: white;
             box-shadow: 0 5px 15px rgba(117, 117, 117, 0.4);
         }
 
-        .btn-secondary:hover {
+        .btn-reset:hover {
             transform: translateY(-5px);
             box-shadow: 0 10px 25px rgba(117, 117, 117, 0.6);
         }
@@ -551,25 +491,22 @@
             justify-content: center;
         }
 
+        .modal.show {
+            display: flex !important;
+        }
+
         .modal-content {
             background: white;
             padding: 50px;
             border-radius: 20px;
             text-align: center;
             max-width: 600px;
-            position: relative;
-            animation: modalPop 0.5s ease-out;
+            animation: pop 0.5s ease-out;
         }
 
-        @keyframes modalPop {
-            0% {
-                transform: scale(0.5);
-                opacity: 0;
-            }
-            100% {
-                transform: scale(1);
-                opacity: 1;
-            }
+        @keyframes pop {
+            0% { transform: scale(0.5); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
         }
 
         .modal-content h2 {
@@ -585,495 +522,422 @@
             animation: bounce 1s infinite;
         }
 
-        .confetti {
-            position: absolute;
-            width: 10px;
-            height: 10px;
-            background: #F58426;
-            animation: confettiFall 3s linear infinite;
+        .team-summary {
+            background: #f0f8ff;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            color: #333;
         }
 
-        @keyframes confettiFall {
-            to {
-                transform: translateY(100vh) rotate(360deg);
-                opacity: 0;
-            }
-        }
-
-        /* Responsive Design */
+        /* Mobile Responsive */
         @media (max-width: 768px) {
-            .game-title {
-                font-size: 2.5em;
-            }
-
-            .rules-container {
-                padding: 20px;
-            }
-
-            .rule-item {
-                flex-direction: column;
-                text-align: center;
-            }
-
-            .rule-number {
-                margin-right: 0;
-                margin-bottom: 10px;
-            }
-
-            .players-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .dashboard {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        .hidden {
-            display: none !important;
-        }
-
-        .show {
-            display: block !important;
-        }
-
-        .flex {
-            display: flex !important;
+            .game-title { font-size: 2.5em; }
+            .rules-box { padding: 20px; }
+            .rule { flex-direction: column; text-align: center; }
+            .rule-num { margin: 0 0 10px 0; }
+            .players-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
 <body>
-    <!-- LANDING PAGE -->
-    <div class="landing-page" id="landingPage">
-        <div class="bow-sports-header">
-            <h1>🏀 BOW SPORTS CAPITAL 🏀</h1>
-        </div>
 
-        <div class="hero-section">
-            <div class="knicks-logo">🏀</div>
-            <h1 class="game-title">BE THE GM</h1>
-            <p class="subtitle">New York Knicks Edition</p>
-
-            <div class="rules-container">
-                <h2>📋 How to Play - It's Easy!</h2>
-
-                <div class="rule-item">
-                    <div class="rule-number">1</div>
-                    <div class="rule-text">
-                        Pick exactly <strong>2 STAR PLAYERS</strong> (marked with ⭐)<br>
-                        These are your superstars!
-                    </div>
-                </div>
-
-                <div class="rule-item">
-                    <div class="rule-number">2</div>
-                    <div class="rule-text">
-                        Pick at least <strong>6 MORE PLAYERS</strong> for your team<br>
-                        (Total = 8 or more players)
-                    </div>
-                </div>
-
-                <div class="rule-item">
-                    <div class="rule-number">3</div>
-                    <div class="rule-text">
-                        Stay under the <strong>$136 Million</strong> salary cap<br>
-                        Just like real NBA teams!
-                    </div>
-                </div>
-
-                <div class="rule-item">
-                    <div class="rule-number">4</div>
-                    <div class="rule-text">
-                        Use <strong>Minimum Contracts</strong> ($2M) to save money<br>
-                        Smart GMs find great deals!
-                    </div>
-                </div>
-
-                <div class="important-box">
-                    <h3>🎯 YOUR MISSION</h3>
-                    <p>Build the BEST Knicks team while staying on budget!</p>
-                    <p style="margin-top: 10px; font-size: 0.9em;">Click on players to add them to your team. Click again to remove them.</p>
-                </div>
-            </div>
-
-            <button class="start-btn" onclick="startGame()">LET'S GO! 🚀</button>
-        </div>
+<!-- ==================== LANDING PAGE ==================== -->
+<div id="landingPage" class="page">
+    <div class="bow-header">
+        <h1>🏀 BOW SPORTS CAPITAL 🏀</h1>
     </div>
 
-    <!-- GAME PAGE -->
-    <div class="game-page hidden" id="gamePage">
-        <div class="game-header">
-            <div class="powered-by">Powered by BOW SPORTS CAPITAL</div>
-            <h1>🏀 BE THE GM - KNICKS EDITION 🏀</h1>
-        </div>
+    <div class="hero">
+        <div class="basketball">🏀</div>
+        <h1 class="game-title">BE THE GM</h1>
+        <p class="subtitle">New York Knicks Edition</p>
 
-        <!-- Dashboard -->
-        <div class="dashboard">
-            <div class="stat-card">
-                <h3>⭐ Star Players</h3>
-                <div class="stat-value stars" id="starCount">0</div>
-                <p style="color: #666; margin-top: 5px;">Need exactly 2</p>
-            </div>
+        <div class="rules-box">
+            <h2>📋 How to Play - It's Easy!</h2>
 
-            <div class="stat-card">
-                <h3>👥 Total Players</h3>
-                <div class="stat-value players" id="playerCount">0</div>
-                <p style="color: #666; margin-top: 5px;">Need 8 or more</p>
-            </div>
-
-            <div class="stat-card">
-                <h3>💰 Salary Cap</h3>
-                <div class="stat-value" id="totalSalary">$0M</div>
-                <div class="progress-bar">
-                    <div class="progress-fill progress-safe" id="progressBar" style="width: 0%;">
-                        0%
-                    </div>
+            <div class="rule">
+                <div class="rule-num">1</div>
+                <div class="rule-text">
+                    Pick exactly <strong>2 STAR PLAYERS</strong> (marked with ⭐)<br>
+                    These are your superstars!
                 </div>
-                <p style="color: #666; margin-top: 5px;">Cap: $136M</p>
             </div>
-        </div>
 
-        <!-- Hint Box -->
-        <div class="hint-box" id="hintBox">
-            <h3>💡 GM Coach Tip</h3>
-            <p id="hintText">Click on players to start building your team!</p>
-        </div>
+            <div class="rule">
+                <div class="rule-num">2</div>
+                <div class="rule-text">
+                    Pick at least <strong>6 MORE PLAYERS</strong> for your team<br>
+                    (Total = 8 or more players)
+                </div>
+            </div>
 
-        <!-- Star Players -->
-        <h2 class="section-title">⭐ STAR PLAYERS - Pick 2!</h2>
-        <div class="players-grid" id="starPlayers"></div>
+            <div class="rule">
+                <div class="rule-num">3</div>
+                <div class="rule-text">
+                    Stay under the <strong>$136 Million</strong> salary cap<br>
+                    Just like real NBA teams!
+                </div>
+            </div>
 
-        <!-- Role Players -->
-        <h2 class="section-title">💪 ROLE PLAYERS - Build Your Team!</h2>
-        <div class="players-grid" id="rolePlayers"></div>
+            <div class="rule">
+                <div class="rule-num">4</div>
+                <div class="rule-text">
+                    Use <strong>Minimum Contracts</strong> ($2M) to save money<br>
+                    Smart GMs find great deals!
+                </div>
+            </div>
 
-        <!-- Minimum Contracts -->
-        <h2 class="section-title">⚡ MINIMUM CONTRACTS - Save Money!</h2>
-        <div class="players-grid" id="minPlayers"></div>
-
-        <!-- Action Buttons -->
-        <div class="action-buttons">
-            <button class="btn btn-primary" onclick="checkTeam()">✓ CHECK MY TEAM</button>
-            <button class="btn btn-secondary" onclick="resetGame()">↺ START OVER</button>
-        </div>
-    </div>
-
-    <!-- Victory Modal -->
-    <div class="modal" id="victoryModal">
-        <div class="modal-content">
-            <div class="trophy">🏆</div>
-            <h2>CHAMPION GM!</h2>
-            <p style="font-size: 1.3em; color: #333; margin: 20px 0;">
-                <strong>Powered by Bow Sports Capital</strong>
-            </p>
-            <p style="font-size: 1.2em; color: #333; margin: 20px 0;">
-                You built an AMAZING Knicks team!
-            </p>
-            <div id="teamSummary" style="background: #f0f8ff; padding: 20px; border-radius: 10px; margin: 20px 0; color: #333;"></div>
-            <button class="btn btn-primary" onclick="closeModal()">Play Again! 🎮</button>
-        </div>
-    </div>
-
-    <script>
-        // Game Data - 2025-26 Knicks Roster
-        const starPlayers = [
-            {
-                name: "Karl-Anthony Towns",
-                position: "Center",
-                salary: 53,
-                emoji: "🏀",
-                funFact: "7-footer who can shoot 3-pointers like a guard!"
-            },
-            {
-                name: "OG Anunoby",
-                position: "Forward",
-                salary: 40,
-                emoji: "🛡️",
-                funFact: "Defensive superstar who stops opponents cold!"
-            }
-        ];
-
-        const rolePlayers = [
-            {
-                name: "Jalen Brunson",
-                position: "Point Guard",
-                salary: 35,
-                emoji: "⚡",
-                funFact: "Team captain who never gives up!"
-            },
-            {
-                name: "Mikal Bridges",
-                position: "Guard/Forward",
-                salary: 25,
-                emoji: "🔥",
-                funFact: "Plays all 82 games every season - Iron Man!"
-            },
-            {
-                name: "Josh Hart",
-                position: "Guard",
-                salary: 19,
-                emoji: "💪",
-                funFact: "Rebounds like a big man even though he's a guard!"
-            },
-            {
-                name: "Mitchell Robinson",
-                position: "Center",
-                salary: 13,
-                emoji: "🚫",
-                funFact: "Blocks shots like he's playing volleyball!"
-            },
-            {
-                name: "Miles McBride",
-                position: "Guard",
-                salary: 4,
-                emoji: "⚡",
-                funFact: "Lightning-fast defender with quick hands!"
-            },
-            {
-                name: "Pacome Dadiet",
-                position: "Forward",
-                salary: 3,
-                emoji: "🇫🇷",
-                funFact: "Rookie sensation all the way from France!"
-            }
-        ];
-
-        const minPlayers = [
-            {
-                name: "Tyler Kolek",
-                position: "Guard",
-                salary: 2,
-                emoji: "🎯",
-                funFact: "Young backup guard with a great shooting touch!"
-            },
-            {
-                name: "Ariel Hukporti",
-                position: "Center",
-                salary: 2,
-                emoji: "🇩🇪",
-                funFact: "Tall center from Germany - great shot blocker!"
-            },
-            {
-                name: "Tosan Evbuomwan",
-                position: "Forward",
-                salary: 2,
-                emoji: "🏃",
-                funFact: "Athletic forward who can run the floor!"
-            },
-            {
-                name: "Jericho Sims",
-                position: "Center",
-                salary: 2,
-                emoji: "🦅",
-                funFact: "High-flying dunker with incredible hops!"
-            }
-        ];
-
-        // Game State
-        let selectedPlayers = [];
-        const SALARY_CAP = 136;
-
-        // Start Game
-        function startGame() {
-            document.getElementById('landingPage').classList.add('hidden');
-            document.getElementById('gamePage').classList.remove('hidden');
-            renderPlayers();
-            updateDashboard();
-        }
-
-        // Render Player Cards
-        function renderPlayers() {
-            renderPlayerGroup('starPlayers', starPlayers, true);
-            renderPlayerGroup('rolePlayers', rolePlayers, false);
-            renderPlayerGroup('minPlayers', minPlayers, false);
-        }
-
-        function renderPlayerGroup(containerId, players, isStar) {
-            const container = document.getElementById(containerId);
-            container.innerHTML = '';
-
-            players.forEach((player, index) => {
-                const card = document.createElement('div');
-                card.className = 'player-card';
-                card.onclick = () => togglePlayer(player, isStar);
-                card.id = `player-${player.name.replace(/\s/g, '-')}`;
-
-                card.innerHTML = `
-                    ${isStar ? '<div class="star-badge">⭐</div>' : ''}
-                    <div class="player-avatar">${player.emoji}</div>
-                    <div class="player-info">
-                        <div class="player-name">${player.name}</div>
-                        <span class="player-position">${player.position}</span>
-                        <div class="player-salary">$${player.salary}M</div>
-                        <div class="fun-fact">💡 ${player.funFact}</div>
-                    </div>
-                `;
-
-                container.appendChild(card);
-            });
-        }
-
-        // Toggle Player Selection
-        function togglePlayer(player, isStar) {
-            const cardId = `player-${player.name.replace(/\s/g, '-')}`;
-            const card = document.getElementById(cardId);
-
-            const index = selectedPlayers.findIndex(p => p.name === player.name);
-
-            if (index > -1) {
-                // Remove player
-                selectedPlayers.splice(index, 1);
-                card.classList.remove('selected');
-            } else {
-                // Add player
-                selectedPlayers.push({...player, isStar});
-                card.classList.add('selected');
-            }
-
-            updateDashboard();
-            updateHint();
-        }
-
-        // Update Dashboard
-        function updateDashboard() {
-            const starCount = selectedPlayers.filter(p => p.isStar).length;
-            const totalPlayers = selectedPlayers.length;
-            const totalSalary = selectedPlayers.reduce((sum, p) => sum + p.salary, 0);
-
-            document.getElementById('starCount').textContent = starCount;
-            document.getElementById('playerCount').textContent = totalPlayers;
-            document.getElementById('totalSalary').textContent = `$${totalSalary}M`;
-
-            // Update progress bar
-            const percentage = Math.min((totalSalary / SALARY_CAP) * 100, 100);
-            const progressBar = document.getElementById('progressBar');
-            progressBar.style.width = `${percentage}%`;
-            progressBar.textContent = `${Math.round(percentage)}%`;
-
-            // Change color based on status
-            progressBar.className = 'progress-fill';
-            if (totalSalary > SALARY_CAP) {
-                progressBar.classList.add('progress-danger');
-            } else if (totalSalary > SALARY_CAP * 0.9) {
-                progressBar.classList.add('progress-warning');
-            } else {
-                progressBar.classList.add('progress-safe');
-            }
-        }
-
-        // Update Hint
-        function updateHint() {
-            const starCount = selectedPlayers.filter(p => p.isStar).length;
-            const totalPlayers = selectedPlayers.length;
-            const totalSalary = selectedPlayers.reduce((sum, p) => sum + p.salary, 0);
-
-            let hint = '';
-
-            if (totalPlayers === 0) {
-                hint = "Click on players to start building your team!";
-            } else if (starCount === 0) {
-                hint = "Great start! Now pick your STAR PLAYERS (⭐)!";
-            } else if (starCount === 1) {
-                hint = "Awesome! Pick ONE MORE star player!";
-            } else if (starCount > 2) {
-                hint = "Oops! You can only have 2 star players. Remove one!";
-            } else if (totalPlayers < 8) {
-                hint = `Good job! You need ${8 - totalPlayers} more players!`;
-            } else if (totalSalary > SALARY_CAP) {
-                hint = `You're over the cap by $${totalSalary - SALARY_CAP}M! Try cheaper players!`;
-            } else {
-                hint = "Looking great! Click 'CHECK MY TEAM' to see if you win!";
-            }
-
-            document.getElementById('hintText').textContent = hint;
-        }
-
-        // Check Team
-        function checkTeam() {
-            const starCount = selectedPlayers.filter(p => p.isStar).length;
-            const totalPlayers = selectedPlayers.length;
-            const totalSalary = selectedPlayers.reduce((sum, p) => sum + p.salary, 0);
-
-            let errors = [];
-
-            if (starCount !== 2) {
-                errors.push(`You need exactly 2 star players (you have ${starCount})`);
-            }
-
-            if (totalPlayers < 8) {
-                errors.push(`You need at least 8 players (you have ${totalPlayers})`);
-            }
-
-            if (totalSalary > SALARY_CAP) {
-                errors.push(`You're over the salary cap by $${totalSalary - SALARY_CAP}M!`);
-            }
-
-            if (errors.length > 0) {
-                alert("Not quite ready! 🤔\n\n" + errors.join('\n\n') + "\n\nKeep trying, you've got this!");
-            } else {
-                showVictory();
-            }
-        }
-
-        // Show Victory Modal
-        function showVictory() {
-            const totalSalary = selectedPlayers.reduce((sum, p) => sum + p.salary, 0);
-            const modal = document.getElementById('victoryModal');
-            const summary = document.getElementById('teamSummary');
-
-            let playerList = selectedPlayers.map(p =>
-                `${p.isStar ? '⭐ ' : ''}${p.name} - $${p.salary}M`
-            ).join('<br>');
-
-            summary.innerHTML = `
-                <h3 style="color: #006BB6; margin-bottom: 10px;">Your Championship Team:</h3>
-                <p style="font-size: 1.1em; line-height: 1.8;">${playerList}</p>
-                <hr style="margin: 15px 0; border: 1px solid #ccc;">
-                <p style="font-size: 1.3em; font-weight: 700; color: #4CAF50;">
-                    Total Salary: $${totalSalary}M / $${SALARY_CAP}M
+            <div class="mission-box">
+                <h3>🎯 YOUR MISSION</h3>
+                <p>Build the BEST Knicks team while staying on budget!</p>
+                <p style="margin-top: 10px; font-size: 0.9em;">
+                    Click on players to add them to your team. Click again to remove them.
                 </p>
-                <p style="font-size: 1.1em; margin-top: 10px; color: #F58426;">
-                    You saved $${SALARY_CAP - totalSalary}M!
-                </p>
-            `;
+            </div>
+        </div>
 
-            modal.classList.add('flex');
-            createConfetti();
-        }
+        <button class="start-btn" onclick="showGame()">LET'S GO! 🚀</button>
+    </div>
+</div>
 
-        // Create Confetti
-        function createConfetti() {
-            const colors = ['#F58426', '#006BB6', '#4CAF50', '#FFC107'];
-            for (let i = 0; i < 50; i++) {
-                const confetti = document.createElement('div');
-                confetti.className = 'confetti';
-                confetti.style.left = Math.random() * 100 + '%';
-                confetti.style.background = colors[Math.floor(Math.random() * colors.length)];
-                confetti.style.animationDelay = Math.random() * 3 + 's';
-                document.getElementById('victoryModal').appendChild(confetti);
+<!-- ==================== GAME PAGE ==================== -->
+<div id="gamePage" class="page hidden">
+    <div class="game-header">
+        <div class="powered-by">Powered by BOW SPORTS CAPITAL</div>
+        <h1>🏀 BE THE GM - KNICKS EDITION 🏀</h1>
+    </div>
 
-                setTimeout(() => confetti.remove(), 3000);
-            }
-        }
+    <!-- Dashboard -->
+    <div class="dashboard">
+        <div class="stat-card">
+            <h3>⭐ Star Players</h3>
+            <div class="stat-value" id="starCount">0</div>
+            <p>Need exactly 2</p>
+        </div>
 
-        // Close Modal
-        function closeModal() {
-            document.getElementById('victoryModal').classList.remove('flex');
-            resetGame();
-        }
+        <div class="stat-card">
+            <h3>👥 Total Players</h3>
+            <div class="stat-value" id="playerCount">0</div>
+            <p>Need 8 or more</p>
+        </div>
 
-        // Reset Game
-        function resetGame() {
-            selectedPlayers = [];
-            document.querySelectorAll('.player-card').forEach(card => {
-                card.classList.remove('selected');
-            });
-            updateDashboard();
-            updateHint();
-        }
+        <div class="stat-card">
+            <h3>💰 Salary Cap</h3>
+            <div class="stat-value" id="totalSalary">$0M</div>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressBar" style="width: 0%;">0%</div>
+            </div>
+            <p>Cap: $136M</p>
+        </div>
+    </div>
 
-        // Initial hint
-        updateHint();
-    </script>
+    <!-- Hint Box -->
+    <div class="hint-box">
+        <h3>💡 GM Coach Tip</h3>
+        <p id="hintText">Click on players to start building your team!</p>
+    </div>
+
+    <!-- Star Players -->
+    <h2 class="section-title">⭐ STAR PLAYERS - Pick 2!</h2>
+    <div class="players-grid" id="starPlayers"></div>
+
+    <!-- Role Players -->
+    <h2 class="section-title">💪 ROLE PLAYERS - Build Your Team!</h2>
+    <div class="players-grid" id="rolePlayers"></div>
+
+    <!-- Minimum Contracts -->
+    <h2 class="section-title">⚡ MINIMUM CONTRACTS - Save Money!</h2>
+    <div class="players-grid" id="minPlayers"></div>
+
+    <!-- Action Buttons -->
+    <div class="actions">
+        <button class="btn btn-check" onclick="checkTeam()">✓ CHECK MY TEAM</button>
+        <button class="btn btn-reset" onclick="resetGame()">↺ START OVER</button>
+    </div>
+</div>
+
+<!-- ==================== VICTORY MODAL ==================== -->
+<div id="victoryModal" class="modal">
+    <div class="modal-content">
+        <div class="trophy">🏆</div>
+        <h2>CHAMPION GM!</h2>
+        <p style="font-size: 1.3em; color: #333; margin: 20px 0;">
+            <strong>Powered by Bow Sports Capital</strong>
+        </p>
+        <p style="font-size: 1.2em; color: #333;">
+            You built an AMAZING Knicks team!
+        </p>
+        <div id="teamSummary" class="team-summary"></div>
+        <button class="btn btn-check" onclick="closeModal()">Play Again! 🎮</button>
+    </div>
+</div>
+
+<script>
+// ==================== GAME DATA ====================
+const SALARY_CAP = 136;
+let selectedPlayers = [];
+
+const starPlayers = [
+    {
+        name: "Karl-Anthony Towns",
+        position: "Center",
+        salary: 53,
+        emoji: "🏀",
+        funFact: "7-footer who can shoot 3-pointers like a guard!"
+    },
+    {
+        name: "OG Anunoby",
+        position: "Forward",
+        salary: 40,
+        emoji: "🛡️",
+        funFact: "Defensive superstar who stops opponents cold!"
+    }
+];
+
+const rolePlayers = [
+    {
+        name: "Jalen Brunson",
+        position: "Point Guard",
+        salary: 35,
+        emoji: "⚡",
+        funFact: "Team captain who never gives up!"
+    },
+    {
+        name: "Mikal Bridges",
+        position: "Guard/Forward",
+        salary: 25,
+        emoji: "🔥",
+        funFact: "Plays all 82 games every season - Iron Man!"
+    },
+    {
+        name: "Josh Hart",
+        position: "Guard",
+        salary: 19,
+        emoji: "💪",
+        funFact: "Rebounds like a big man even though he's a guard!"
+    },
+    {
+        name: "Mitchell Robinson",
+        position: "Center",
+        salary: 13,
+        emoji: "🚫",
+        funFact: "Blocks shots like he's playing volleyball!"
+    },
+    {
+        name: "Miles McBride",
+        position: "Guard",
+        salary: 4,
+        emoji: "⚡",
+        funFact: "Lightning-fast defender with quick hands!"
+    },
+    {
+        name: "Pacome Dadiet",
+        position: "Forward",
+        salary: 3,
+        emoji: "🇫🇷",
+        funFact: "Rookie sensation all the way from France!"
+    }
+];
+
+const minPlayers = [
+    {
+        name: "Tyler Kolek",
+        position: "Guard",
+        salary: 2,
+        emoji: "🎯",
+        funFact: "Young backup guard with a great shooting touch!"
+    },
+    {
+        name: "Ariel Hukporti",
+        position: "Center",
+        salary: 2,
+        emoji: "🇩🇪",
+        funFact: "Tall center from Germany - great shot blocker!"
+    },
+    {
+        name: "Tosan Evbuomwan",
+        position: "Forward",
+        salary: 2,
+        emoji: "🏃",
+        funFact: "Athletic forward who can run the floor!"
+    },
+    {
+        name: "Jericho Sims",
+        position: "Center",
+        salary: 2,
+        emoji: "🦅",
+        funFact: "High-flying dunker with incredible hops!"
+    }
+];
+
+// ==================== FUNCTIONS ====================
+
+function showGame() {
+    document.getElementById('landingPage').classList.add('hidden');
+    document.getElementById('gamePage').classList.remove('hidden');
+    renderPlayers();
+    updateDashboard();
+}
+
+function renderPlayers() {
+    renderGroup('starPlayers', starPlayers, true);
+    renderGroup('rolePlayers', rolePlayers, false);
+    renderGroup('minPlayers', minPlayers, false);
+}
+
+function renderGroup(containerId, players, isStar) {
+    const container = document.getElementById(containerId);
+    container.innerHTML = '';
+
+    players.forEach(player => {
+        const card = document.createElement('div');
+        card.className = 'player-card';
+        card.onclick = () => togglePlayer(player, isStar);
+        card.id = `player-${player.name.replace(/\s+/g, '-')}`;
+
+        card.innerHTML = `
+            ${isStar ? '<div class="star-badge">⭐</div>' : ''}
+            <div class="player-avatar">${player.emoji}</div>
+            <div class="player-info">
+                <div class="player-name">${player.name}</div>
+                <span class="player-position">${player.position}</span>
+                <div class="player-salary">$${player.salary}M</div>
+                <div class="fun-fact">💡 ${player.funFact}</div>
+            </div>
+        `;
+
+        container.appendChild(card);
+    });
+}
+
+function togglePlayer(player, isStar) {
+    const cardId = `player-${player.name.replace(/\s+/g, '-')}`;
+    const card = document.getElementById(cardId);
+    const index = selectedPlayers.findIndex(p => p.name === player.name);
+
+    if (index > -1) {
+        selectedPlayers.splice(index, 1);
+        card.classList.remove('selected');
+    } else {
+        selectedPlayers.push({...player, isStar});
+        card.classList.add('selected');
+    }
+
+    updateDashboard();
+    updateHint();
+}
+
+function updateDashboard() {
+    const starCount = selectedPlayers.filter(p => p.isStar).length;
+    const totalPlayers = selectedPlayers.length;
+    const totalSalary = selectedPlayers.reduce((sum, p) => sum + p.salary, 0);
+
+    document.getElementById('starCount').textContent = starCount;
+    document.getElementById('playerCount').textContent = totalPlayers;
+    document.getElementById('totalSalary').textContent = `$${totalSalary}M`;
+
+    const percentage = Math.min((totalSalary / SALARY_CAP) * 100, 100);
+    const progressBar = document.getElementById('progressBar');
+    progressBar.style.width = `${percentage}%`;
+    progressBar.textContent = `${Math.round(percentage)}%`;
+
+    progressBar.className = 'progress-fill';
+    if (totalSalary > SALARY_CAP) {
+        progressBar.classList.add('progress-danger');
+    } else if (totalSalary > SALARY_CAP * 0.9) {
+        progressBar.classList.add('progress-warning');
+    }
+}
+
+function updateHint() {
+    const starCount = selectedPlayers.filter(p => p.isStar).length;
+    const totalPlayers = selectedPlayers.length;
+    const totalSalary = selectedPlayers.reduce((sum, p) => sum + p.salary, 0);
+
+    let hint = '';
+
+    if (totalPlayers === 0) {
+        hint = "Click on players to start building your team!";
+    } else if (starCount === 0) {
+        hint = "Great start! Now pick your STAR PLAYERS (⭐)!";
+    } else if (starCount === 1) {
+        hint = "Awesome! Pick ONE MORE star player!";
+    } else if (starCount > 2) {
+        hint = "Oops! You can only have 2 star players. Remove one!";
+    } else if (totalPlayers < 8) {
+        hint = `Good job! You need ${8 - totalPlayers} more players!`;
+    } else if (totalSalary > SALARY_CAP) {
+        hint = `You're over the cap by $${totalSalary - SALARY_CAP}M! Try cheaper players!`;
+    } else {
+        hint = "Looking great! Click 'CHECK MY TEAM' to see if you win!";
+    }
+
+    const hintElement = document.getElementById('hintText');
+    if (hintElement) {
+        hintElement.textContent = hint;
+    }
+}
+
+function checkTeam() {
+    const starCount = selectedPlayers.filter(p => p.isStar).length;
+    const totalPlayers = selectedPlayers.length;
+    const totalSalary = selectedPlayers.reduce((sum, p) => sum + p.salary, 0);
+
+    let errors = [];
+
+    if (starCount !== 2) {
+        errors.push(`You need exactly 2 star players (you have ${starCount})`);
+    }
+    if (totalPlayers < 8) {
+        errors.push(`You need at least 8 players (you have ${totalPlayers})`);
+    }
+    if (totalSalary > SALARY_CAP) {
+        errors.push(`You're over the salary cap by $${totalSalary - SALARY_CAP}M!`);
+    }
+
+    if (errors.length > 0) {
+        alert("Not quite ready! 🤔\n\n" + errors.join('\n\n') + "\n\nKeep trying, you've got this!");
+    } else {
+        showVictory();
+    }
+}
+
+function showVictory() {
+    const totalSalary = selectedPlayers.reduce((sum, p) => sum + p.salary, 0);
+    const playerList = selectedPlayers
+        .map(p => `${p.isStar ? '⭐ ' : ''}${p.name} - $${p.salary}M`)
+        .join('<br>');
+
+    document.getElementById('teamSummary').innerHTML = `
+        <h3 style="color: #006BB6; margin-bottom: 10px;">Your Championship Team:</h3>
+        <p style="font-size: 1.1em; line-height: 1.8;">${playerList}</p>
+        <hr style="margin: 15px 0; border: 1px solid #ccc;">
+        <p style="font-size: 1.3em; font-weight: 700; color: #4CAF50;">
+            Total Salary: $${totalSalary}M / $${SALARY_CAP}M
+        </p>
+        <p style="font-size: 1.1em; margin-top: 10px; color: #F58426;">
+            You saved $${SALARY_CAP - totalSalary}M!
+        </p>
+    `;
+
+    document.getElementById('victoryModal').classList.add('show');
+}
+
+function closeModal() {
+    document.getElementById('victoryModal').classList.remove('show');
+    resetGame();
+}
+
+function resetGame() {
+    selectedPlayers = [];
+    document.querySelectorAll('.player-card').forEach(card => {
+        card.classList.remove('selected');
+    });
+    updateDashboard();
+    updateHint();
+}
+</script>
+
 </body>
 </html>
