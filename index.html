@@ -225,7 +225,7 @@
         /* Dashboard */
         .dashboard {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 20px;
             margin-bottom: 30px;
         }
@@ -282,6 +282,24 @@
 
         .progress-danger {
             background: linear-gradient(90deg, #f44336 0%, #ef5350 100%);
+        }
+
+        .quality-indicator {
+            font-size: 1.2em;
+            margin-top: 10px;
+            font-weight: 600;
+        }
+
+        .quality-good {
+            color: #4CAF50;
+        }
+
+        .quality-warning {
+            color: #FFC107;
+        }
+
+        .quality-danger {
+            color: #f44336;
         }
 
         /* Hint Box */
@@ -413,12 +431,36 @@
             margin-bottom: 10px;
         }
 
-        .player-salary {
-            font-size: 2em;
-            font-weight: 700;
-            color: #4CAF50;
+        .player-stats {
+            display: flex;
+            justify-content: space-around;
+            margin: 15px 0;
+            padding: 10px;
+            background: #f5f5f5;
+            border-radius: 10px;
+        }
+
+        .stat-item {
             text-align: center;
-            margin: 10px 0;
+        }
+
+        .stat-label {
+            font-size: 0.8em;
+            color: #666;
+            margin-bottom: 5px;
+        }
+
+        .stat-amount {
+            font-size: 1.3em;
+            font-weight: 700;
+        }
+
+        .salary-amount {
+            color: #4CAF50;
+        }
+
+        .quality-amount {
+            color: #2196F3;
         }
 
         .player-info {
@@ -489,6 +531,7 @@
             z-index: 1000;
             align-items: center;
             justify-content: center;
+            overflow-y: auto;
         }
 
         .modal.show {
@@ -500,8 +543,9 @@
             padding: 50px;
             border-radius: 20px;
             text-align: center;
-            max-width: 600px;
+            max-width: 700px;
             animation: pop 0.5s ease-out;
+            margin: 20px;
         }
 
         @keyframes pop {
@@ -530,6 +574,33 @@
             color: #333;
         }
 
+        .claim-code-box {
+            background: linear-gradient(135deg, #F58426 0%, #ff6b35 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            margin: 20px 0;
+            border: 4px dashed white;
+        }
+
+        .claim-code-box h3 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2em;
+            margin-bottom: 15px;
+        }
+
+        .claim-code {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 3em;
+            background: white;
+            color: #F58426;
+            padding: 15px 30px;
+            border-radius: 10px;
+            display: inline-block;
+            letter-spacing: 3px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
         /* Mobile Responsive */
         @media (max-width: 768px) {
             .game-title { font-size: 2.5em; }
@@ -537,6 +608,8 @@
             .rule { flex-direction: column; text-align: center; }
             .rule-num { margin: 0 0 10px 0; }
             .players-grid { grid-template-columns: 1fr; }
+            .dashboard { grid-template-columns: 1fr; }
+            .claim-code { font-size: 2em; }
         }
     </style>
 </head>
@@ -559,40 +632,41 @@
             <div class="rule">
                 <div class="rule-num">1</div>
                 <div class="rule-text">
-                    Pick exactly <strong>2 STAR PLAYERS</strong> (marked with ⭐)<br>
-                    These are your superstars!
+                    Pick at least <strong>1 STAR PLAYER</strong> (marked with ⭐)<br>
+                    Stars are the best players!
                 </div>
             </div>
 
             <div class="rule">
                 <div class="rule-num">2</div>
                 <div class="rule-text">
-                    Pick at least <strong>6 MORE PLAYERS</strong> for your team<br>
-                    (Total = 8 or more players)
+                    Pick at least <strong>8 TOTAL PLAYERS</strong><br>
+                    Mix stars, role players, and free agents!
                 </div>
             </div>
 
             <div class="rule">
                 <div class="rule-num">3</div>
                 <div class="rule-text">
-                    Stay under the <strong>$136 Million</strong> salary cap<br>
-                    Just like real NBA teams!
+                    Get <strong>50+ QUALITY POINTS</strong><br>
+                    Better players = more quality points!
                 </div>
             </div>
 
             <div class="rule">
                 <div class="rule-num">4</div>
                 <div class="rule-text">
-                    Use <strong>Minimum Contracts</strong> ($2M) to save money<br>
-                    Smart GMs find great deals!
+                    Stay under the <strong>$136 Million</strong> salary cap<br>
+                    Add up all the salaries - don't go over!
                 </div>
             </div>
 
             <div class="mission-box">
                 <h3>🎯 YOUR MISSION</h3>
-                <p>Build the BEST Knicks team while staying on budget!</p>
+                <p>Build the BEST Knicks team while managing your budget!</p>
                 <p style="margin-top: 10px; font-size: 0.9em;">
-                    Click on players to add them to your team. Click again to remove them.
+                    Click on players to add them. Click again to remove them.<br>
+                    <strong>Complete the challenge to earn your claim code!</strong>
                 </p>
             </div>
         </div>
@@ -613,13 +687,19 @@
         <div class="stat-card">
             <h3>⭐ Star Players</h3>
             <div class="stat-value" id="starCount">0</div>
-            <p>Need exactly 2</p>
+            <p>Need at least 1</p>
         </div>
 
         <div class="stat-card">
             <h3>👥 Total Players</h3>
             <div class="stat-value" id="playerCount">0</div>
             <p>Need 8 or more</p>
+        </div>
+
+        <div class="stat-card">
+            <h3>🏆 Quality Points</h3>
+            <div class="stat-value" id="qualityPoints">0</div>
+            <p id="qualityStatus" class="quality-indicator">Need 50+</p>
         </div>
 
         <div class="stat-card">
@@ -639,15 +719,19 @@
     </div>
 
     <!-- Star Players -->
-    <h2 class="section-title">⭐ STAR PLAYERS - Pick 2!</h2>
+    <h2 class="section-title">⭐ STAR PLAYERS - Elite Talent!</h2>
     <div class="players-grid" id="starPlayers"></div>
 
     <!-- Role Players -->
-    <h2 class="section-title">💪 ROLE PLAYERS - Build Your Team!</h2>
+    <h2 class="section-title">💪 ROLE PLAYERS - Solid Contributors!</h2>
     <div class="players-grid" id="rolePlayers"></div>
 
+    <!-- Free Agents -->
+    <h2 class="section-title">🆓 FREE AGENTS - Available Players!</h2>
+    <div class="players-grid" id="freeAgents"></div>
+
     <!-- Minimum Contracts -->
-    <h2 class="section-title">⚡ MINIMUM CONTRACTS - Save Money!</h2>
+    <h2 class="section-title">⚡ MINIMUM CONTRACTS - Budget Options!</h2>
     <div class="players-grid" id="minPlayers"></div>
 
     <!-- Action Buttons -->
@@ -669,6 +753,14 @@
             You built an AMAZING Knicks team!
         </p>
         <div id="teamSummary" class="team-summary"></div>
+
+        <div class="claim-code-box">
+            <h3>🎉 CONGRATULATIONS! 🎉</h3>
+            <p style="margin-bottom: 15px; font-size: 1.1em;">Write down your claim code:</p>
+            <div class="claim-code">L1-101-M1-67</div>
+            <p style="margin-top: 15px; font-size: 0.9em;">Show this code to your teacher!</p>
+        </div>
+
         <button class="btn btn-check" onclick="closeModal()">Play Again! 🎮</button>
     </div>
 </div>
@@ -676,6 +768,7 @@
 <script>
 // ==================== GAME DATA ====================
 const SALARY_CAP = 136;
+const QUALITY_TARGET = 50;
 let selectedPlayers = [];
 
 const starPlayers = [
@@ -683,6 +776,7 @@ const starPlayers = [
         name: "Karl-Anthony Towns",
         position: "Center",
         salary: 53,
+        quality: 10,
         emoji: "🏀",
         funFact: "7-footer who can shoot 3-pointers like a guard!"
     },
@@ -690,23 +784,26 @@ const starPlayers = [
         name: "OG Anunoby",
         position: "Forward",
         salary: 40,
+        quality: 10,
         emoji: "🛡️",
         funFact: "Defensive superstar who stops opponents cold!"
+    },
+    {
+        name: "Jalen Brunson",
+        position: "Point Guard",
+        salary: 35,
+        quality: 10,
+        emoji: "⭐",
+        funFact: "Team captain and All-Star point guard!"
     }
 ];
 
 const rolePlayers = [
     {
-        name: "Jalen Brunson",
-        position: "Point Guard",
-        salary: 35,
-        emoji: "⚡",
-        funFact: "Team captain who never gives up!"
-    },
-    {
         name: "Mikal Bridges",
         position: "Guard/Forward",
         salary: 25,
+        quality: 8,
         emoji: "🔥",
         funFact: "Plays all 82 games every season - Iron Man!"
     },
@@ -714,6 +811,7 @@ const rolePlayers = [
         name: "Josh Hart",
         position: "Guard",
         salary: 19,
+        quality: 7,
         emoji: "💪",
         funFact: "Rebounds like a big man even though he's a guard!"
     },
@@ -721,6 +819,7 @@ const rolePlayers = [
         name: "Mitchell Robinson",
         position: "Center",
         salary: 13,
+        quality: 6,
         emoji: "🚫",
         funFact: "Blocks shots like he's playing volleyball!"
     },
@@ -728,6 +827,7 @@ const rolePlayers = [
         name: "Miles McBride",
         position: "Guard",
         salary: 4,
+        quality: 5,
         emoji: "⚡",
         funFact: "Lightning-fast defender with quick hands!"
     },
@@ -735,8 +835,44 @@ const rolePlayers = [
         name: "Pacome Dadiet",
         position: "Forward",
         salary: 3,
+        quality: 4,
         emoji: "🇫🇷",
         funFact: "Rookie sensation all the way from France!"
+    }
+];
+
+const freeAgents = [
+    {
+        name: "Isaiah Hartenstein",
+        position: "Center",
+        salary: 16,
+        quality: 7,
+        emoji: "🦾",
+        funFact: "Former Knick who's a great rebounder!"
+    },
+    {
+        name: "Immanuel Quickley",
+        position: "Guard",
+        salary: 5,
+        quality: 6,
+        emoji: "🎯",
+        funFact: "Former Knick with a quick shot!"
+    },
+    {
+        name: "Guerschon Yabusele",
+        position: "Forward",
+        salary: 6,
+        quality: 5,
+        emoji: "🇫🇷",
+        funFact: "Strong forward from France!"
+    },
+    {
+        name: "Landry Shamet",
+        position: "Guard",
+        salary: 3,
+        quality: 4,
+        emoji: "🎪",
+        funFact: "Three-point shooting specialist!"
     }
 ];
 
@@ -745,6 +881,7 @@ const minPlayers = [
         name: "Tyler Kolek",
         position: "Guard",
         salary: 2,
+        quality: 3,
         emoji: "🎯",
         funFact: "Young backup guard with a great shooting touch!"
     },
@@ -752,6 +889,7 @@ const minPlayers = [
         name: "Ariel Hukporti",
         position: "Center",
         salary: 2,
+        quality: 3,
         emoji: "🇩🇪",
         funFact: "Tall center from Germany - great shot blocker!"
     },
@@ -759,6 +897,7 @@ const minPlayers = [
         name: "Tosan Evbuomwan",
         position: "Forward",
         salary: 2,
+        quality: 2,
         emoji: "🏃",
         funFact: "Athletic forward who can run the floor!"
     },
@@ -766,6 +905,7 @@ const minPlayers = [
         name: "Jericho Sims",
         position: "Center",
         salary: 2,
+        quality: 3,
         emoji: "🦅",
         funFact: "High-flying dunker with incredible hops!"
     }
@@ -783,6 +923,7 @@ function showGame() {
 function renderPlayers() {
     renderGroup('starPlayers', starPlayers, true);
     renderGroup('rolePlayers', rolePlayers, false);
+    renderGroup('freeAgents', freeAgents, false);
     renderGroup('minPlayers', minPlayers, false);
 }
 
@@ -802,7 +943,16 @@ function renderGroup(containerId, players, isStar) {
             <div class="player-info">
                 <div class="player-name">${player.name}</div>
                 <span class="player-position">${player.position}</span>
-                <div class="player-salary">$${player.salary}M</div>
+                <div class="player-stats">
+                    <div class="stat-item">
+                        <div class="stat-label">Salary</div>
+                        <div class="stat-amount salary-amount">$${player.salary}M</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">Quality</div>
+                        <div class="stat-amount quality-amount">${player.quality} pts</div>
+                    </div>
+                </div>
                 <div class="fun-fact">💡 ${player.funFact}</div>
             </div>
         `;
@@ -832,11 +982,24 @@ function updateDashboard() {
     const starCount = selectedPlayers.filter(p => p.isStar).length;
     const totalPlayers = selectedPlayers.length;
     const totalSalary = selectedPlayers.reduce((sum, p) => sum + p.salary, 0);
+    const totalQuality = selectedPlayers.reduce((sum, p) => sum + p.quality, 0);
 
     document.getElementById('starCount').textContent = starCount;
     document.getElementById('playerCount').textContent = totalPlayers;
     document.getElementById('totalSalary').textContent = `$${totalSalary}M`;
+    document.getElementById('qualityPoints').textContent = totalQuality;
 
+    // Update quality status
+    const qualityStatus = document.getElementById('qualityStatus');
+    if (totalQuality >= QUALITY_TARGET) {
+        qualityStatus.textContent = "✓ Great team!";
+        qualityStatus.className = "quality-indicator quality-good";
+    } else {
+        qualityStatus.textContent = `Need ${QUALITY_TARGET - totalQuality} more`;
+        qualityStatus.className = totalQuality >= QUALITY_TARGET * 0.8 ? "quality-indicator quality-warning" : "quality-indicator quality-danger";
+    }
+
+    // Update salary progress bar
     const percentage = Math.min((totalSalary / SALARY_CAP) * 100, 100);
     const progressBar = document.getElementById('progressBar');
     progressBar.style.width = `${percentage}%`;
@@ -854,23 +1017,22 @@ function updateHint() {
     const starCount = selectedPlayers.filter(p => p.isStar).length;
     const totalPlayers = selectedPlayers.length;
     const totalSalary = selectedPlayers.reduce((sum, p) => sum + p.salary, 0);
+    const totalQuality = selectedPlayers.reduce((sum, p) => sum + p.quality, 0);
 
     let hint = '';
 
     if (totalPlayers === 0) {
         hint = "Click on players to start building your team!";
     } else if (starCount === 0) {
-        hint = "Great start! Now pick your STAR PLAYERS (⭐)!";
-    } else if (starCount === 1) {
-        hint = "Awesome! Pick ONE MORE star player!";
-    } else if (starCount > 2) {
-        hint = "Oops! You can only have 2 star players. Remove one!";
+        hint = "Great start! Now pick at least ONE STAR PLAYER (⭐)!";
     } else if (totalPlayers < 8) {
         hint = `Good job! You need ${8 - totalPlayers} more players!`;
+    } else if (totalQuality < QUALITY_TARGET) {
+        hint = `You need ${QUALITY_TARGET - totalQuality} more quality points. Try adding better players!`;
     } else if (totalSalary > SALARY_CAP) {
         hint = `You're over the cap by $${totalSalary - SALARY_CAP}M! Try cheaper players!`;
     } else {
-        hint = "Looking great! Click 'CHECK MY TEAM' to see if you win!";
+        hint = "Looking amazing! Click 'CHECK MY TEAM' to see if you win!";
     }
 
     const hintElement = document.getElementById('hintText');
@@ -883,21 +1045,25 @@ function checkTeam() {
     const starCount = selectedPlayers.filter(p => p.isStar).length;
     const totalPlayers = selectedPlayers.length;
     const totalSalary = selectedPlayers.reduce((sum, p) => sum + p.salary, 0);
+    const totalQuality = selectedPlayers.reduce((sum, p) => sum + p.quality, 0);
 
     let errors = [];
 
-    if (starCount !== 2) {
-        errors.push(`You need exactly 2 star players (you have ${starCount})`);
+    if (starCount < 1) {
+        errors.push(`❌ You need at least 1 star player (you have ${starCount})`);
     }
     if (totalPlayers < 8) {
-        errors.push(`You need at least 8 players (you have ${totalPlayers})`);
+        errors.push(`❌ You need at least 8 players (you have ${totalPlayers})`);
+    }
+    if (totalQuality < QUALITY_TARGET) {
+        errors.push(`❌ You need ${QUALITY_TARGET} quality points (you have ${totalQuality})`);
     }
     if (totalSalary > SALARY_CAP) {
-        errors.push(`You're over the salary cap by $${totalSalary - SALARY_CAP}M!`);
+        errors.push(`❌ You're over the salary cap by $${totalSalary - SALARY_CAP}M!`);
     }
 
     if (errors.length > 0) {
-        alert("Not quite ready! 🤔\n\n" + errors.join('\n\n') + "\n\nKeep trying, you've got this!");
+        alert("Not quite ready! 🤔\n\n" + errors.join('\n\n') + "\n\nKeep trying, you've got this! Check the hints above.");
     } else {
         showVictory();
     }
@@ -905,19 +1071,35 @@ function checkTeam() {
 
 function showVictory() {
     const totalSalary = selectedPlayers.reduce((sum, p) => sum + p.salary, 0);
+    const totalQuality = selectedPlayers.reduce((sum, p) => sum + p.quality, 0);
     const playerList = selectedPlayers
-        .map(p => `${p.isStar ? '⭐ ' : ''}${p.name} - $${p.salary}M`)
+        .map(p => `${p.isStar ? '⭐ ' : ''}${p.name} - $${p.salary}M (${p.quality} quality pts)`)
         .join('<br>');
 
     document.getElementById('teamSummary').innerHTML = `
         <h3 style="color: #006BB6; margin-bottom: 10px;">Your Championship Team:</h3>
-        <p style="font-size: 1.1em; line-height: 1.8;">${playerList}</p>
+        <p style="font-size: 1.1em; line-height: 1.8; margin-bottom: 15px;">${playerList}</p>
         <hr style="margin: 15px 0; border: 1px solid #ccc;">
-        <p style="font-size: 1.3em; font-weight: 700; color: #4CAF50;">
-            Total Salary: $${totalSalary}M / $${SALARY_CAP}M
-        </p>
-        <p style="font-size: 1.1em; margin-top: 10px; color: #F58426;">
-            You saved $${SALARY_CAP - totalSalary}M!
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; text-align: left;">
+            <div>
+                <p style="font-size: 1.1em; color: #666;">Total Players:</p>
+                <p style="font-size: 1.5em; font-weight: 700; color: #006BB6;">${selectedPlayers.length}</p>
+            </div>
+            <div>
+                <p style="font-size: 1.1em; color: #666;">Star Players:</p>
+                <p style="font-size: 1.5em; font-weight: 700; color: #F58426;">${selectedPlayers.filter(p => p.isStar).length}</p>
+            </div>
+            <div>
+                <p style="font-size: 1.1em; color: #666;">Quality Points:</p>
+                <p style="font-size: 1.5em; font-weight: 700; color: #2196F3;">${totalQuality}</p>
+            </div>
+            <div>
+                <p style="font-size: 1.1em; color: #666;">Total Salary:</p>
+                <p style="font-size: 1.5em; font-weight: 700; color: #4CAF50;">$${totalSalary}M</p>
+            </div>
+        </div>
+        <p style="font-size: 1.2em; margin-top: 15px; color: #F58426; font-weight: 700;">
+            💰 You saved $${SALARY_CAP - totalSalary}M under the cap!
         </p>
     `;
 
