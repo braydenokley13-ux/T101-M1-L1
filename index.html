@@ -176,6 +176,83 @@
             font-weight: 600;
         }
 
+        /* ========== DIFFICULTY SELECTOR ========== */
+        .difficulty-section {
+            margin: 30px 0 10px 0;
+        }
+
+        .difficulty-section h2 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2.5em;
+            color: #006BB6;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .difficulty-cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .difficulty-card {
+            background: linear-gradient(135deg, #f0f8ff 0%, #e6f3ff 100%);
+            border: 3px solid #ddd;
+            border-radius: 15px;
+            padding: 25px 15px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: center;
+            position: relative;
+        }
+
+        .difficulty-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .difficulty-card.selected {
+            border-color: #F58426;
+            background: linear-gradient(135deg, #FFF3E0 0%, #FFE0B2 100%);
+            box-shadow: 0 5px 20px rgba(245, 132, 38, 0.4);
+        }
+
+        .difficulty-card.selected::after {
+            content: 'SELECTED';
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #F58426;
+            color: white;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 0.9em;
+            padding: 2px 14px;
+            border-radius: 10px;
+            letter-spacing: 1px;
+        }
+
+        .difficulty-stars {
+            font-size: 1.8em;
+            margin-bottom: 10px;
+        }
+
+        .difficulty-name {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.6em;
+            color: #006BB6;
+            margin-bottom: 8px;
+        }
+
+        .difficulty-desc {
+            font-size: 0.9em;
+            color: #555;
+            font-weight: 600;
+            line-height: 1.4;
+        }
+
         .start-btn {
             background: linear-gradient(135deg, #F58426 0%, #ff6b35 100%);
             color: white;
@@ -220,6 +297,19 @@
         .powered-by {
             font-size: 1em;
             opacity: 0.9;
+        }
+
+        .difficulty-badge {
+            display: inline-block;
+            background: rgba(245, 132, 38, 0.2);
+            border: 2px solid #F58426;
+            border-radius: 25px;
+            padding: 5px 20px;
+            margin-top: 8px;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.2em;
+            letter-spacing: 1px;
+            color: #F58426;
         }
 
         /* Dashboard */
@@ -300,6 +390,43 @@
 
         .quality-danger {
             color: #f44336;
+        }
+
+        /* Position tracker */
+        .position-tracker {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 10px;
+            gap: 5px;
+        }
+
+        .pos-item {
+            font-size: 0.85em;
+            font-weight: 600;
+            padding: 3px 8px;
+            border-radius: 8px;
+            background: #f5f5f5;
+        }
+
+        .pos-met {
+            background: #E8F5E9;
+            color: #4CAF50;
+        }
+
+        .pos-unmet {
+            background: #FFEBEE;
+            color: #f44336;
+        }
+
+        /* Luxury tax */
+        .tax-warning {
+            color: #f44336;
+            font-weight: 700;
+        }
+
+        .tax-safe {
+            color: #4CAF50;
+            font-weight: 700;
         }
 
         /* Hint Box */
@@ -601,6 +728,18 @@
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
         }
 
+        .victory-difficulty {
+            display: inline-block;
+            background: #006BB6;
+            color: white;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.3em;
+            padding: 5px 20px;
+            border-radius: 25px;
+            margin-bottom: 10px;
+            letter-spacing: 1px;
+        }
+
         /* Mobile Responsive */
         @media (max-width: 768px) {
             .game-title { font-size: 2.5em; }
@@ -610,6 +749,7 @@
             .players-grid { grid-template-columns: 1fr; }
             .dashboard { grid-template-columns: 1fr; }
             .claim-code { font-size: 2em; }
+            .difficulty-cards { grid-template-columns: 1fr; }
         }
     </style>
 </head>
@@ -627,39 +767,8 @@
         <p class="subtitle">New York Knicks Edition</p>
 
         <div class="rules-box">
-            <h2>📋 How to Play - It's Easy!</h2>
-
-            <div class="rule">
-                <div class="rule-num">1</div>
-                <div class="rule-text">
-                    Pick at least <strong>1 STAR PLAYER</strong> (marked with ⭐)<br>
-                    Stars are the best players!
-                </div>
-            </div>
-
-            <div class="rule">
-                <div class="rule-num">2</div>
-                <div class="rule-text">
-                    Pick at least <strong>8 TOTAL PLAYERS</strong><br>
-                    Mix stars, role players, and free agents!
-                </div>
-            </div>
-
-            <div class="rule">
-                <div class="rule-num">3</div>
-                <div class="rule-text">
-                    Get <strong>50+ QUALITY POINTS</strong><br>
-                    Better players = more quality points!
-                </div>
-            </div>
-
-            <div class="rule">
-                <div class="rule-num">4</div>
-                <div class="rule-text">
-                    Stay under the <strong>$136 Million</strong> salary cap<br>
-                    Add up all the salaries - don't go over!
-                </div>
-            </div>
+            <h2>📋 How to Play</h2>
+            <div id="rulesContainer"></div>
 
             <div class="mission-box">
                 <h3>🎯 YOUR MISSION</h3>
@@ -668,6 +777,28 @@
                     Click on players to add them. Click again to remove them.<br>
                     <strong>Complete the challenge to earn your claim code!</strong>
                 </p>
+            </div>
+
+            <!-- Difficulty Selector -->
+            <div class="difficulty-section">
+                <h2>Choose Your Challenge</h2>
+                <div class="difficulty-cards">
+                    <div class="difficulty-card selected" onclick="selectDifficulty(1)" id="diff-1">
+                        <div class="difficulty-stars">⭐</div>
+                        <div class="difficulty-name">Rookie GM</div>
+                        <div class="difficulty-desc">Start here! Generous budget with helpful hints guiding every step.</div>
+                    </div>
+                    <div class="difficulty-card" onclick="selectDifficulty(2)" id="diff-2">
+                        <div class="difficulty-stars">⭐⭐</div>
+                        <div class="difficulty-name">All-Star GM</div>
+                        <div class="difficulty-desc">Tighter budget, more stars required, and you must cover every position.</div>
+                    </div>
+                    <div class="difficulty-card" onclick="selectDifficulty(3)" id="diff-3">
+                        <div class="difficulty-stars">⭐⭐⭐</div>
+                        <div class="difficulty-name">Championship GM</div>
+                        <div class="difficulty-desc">Think you can handle the pros? Luxury tax, deep roster, no hints!</div>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -680,20 +811,21 @@
     <div class="game-header">
         <div class="powered-by">Powered by BOW SPORTS CAPITAL</div>
         <h1>🏀 BE THE GM - KNICKS EDITION 🏀</h1>
+        <div class="difficulty-badge" id="difficultyBadge">ROOKIE GM</div>
     </div>
 
     <!-- Dashboard -->
-    <div class="dashboard">
+    <div class="dashboard" id="dashboard">
         <div class="stat-card">
             <h3>⭐ Star Players</h3>
             <div class="stat-value" id="starCount">0</div>
-            <p>Need at least 1</p>
+            <p id="starTarget">Need at least 1</p>
         </div>
 
         <div class="stat-card">
             <h3>👥 Total Players</h3>
             <div class="stat-value" id="playerCount">0</div>
-            <p>Need 8 or more</p>
+            <p id="playerTarget">Need 8 or more</p>
         </div>
 
         <div class="stat-card">
@@ -708,12 +840,26 @@
             <div class="progress-bar">
                 <div class="progress-fill" id="progressBar" style="width: 0%;">0%</div>
             </div>
-            <p>Cap: $136M</p>
+            <p id="capLabel">Cap: $136M</p>
+        </div>
+
+        <!-- Position card (hidden on Level 1) -->
+        <div class="stat-card hidden" id="positionCard">
+            <h3>🏟️ Positions</h3>
+            <div class="position-tracker" id="positionTracker"></div>
+            <p id="positionTarget" style="margin-top: 8px;"></p>
+        </div>
+
+        <!-- Luxury Tax card (Level 3 only) -->
+        <div class="stat-card hidden" id="taxCard">
+            <h3>💸 Luxury Tax</h3>
+            <div class="stat-value" id="taxPenalty">0 pts</div>
+            <p id="taxStatus" class="tax-safe">No tax yet</p>
         </div>
     </div>
 
     <!-- Hint Box -->
-    <div class="hint-box">
+    <div class="hint-box" id="hintBox">
         <h3>💡 GM Coach Tip</h3>
         <p id="hintText">Click on players to start building your team!</p>
     </div>
@@ -745,6 +891,7 @@
 <div id="victoryModal" class="modal">
     <div class="modal-content">
         <div class="trophy">🏆</div>
+        <div class="victory-difficulty" id="victoryDifficulty">ROOKIE GM</div>
         <h2>CHAMPION GM!</h2>
         <p style="font-size: 1.3em; color: #333; margin: 20px 0;">
             <strong>Powered by Bow Sports Capital</strong>
@@ -757,7 +904,7 @@
         <div class="claim-code-box">
             <h3>🎉 CONGRATULATIONS! 🎉</h3>
             <p style="margin-bottom: 15px; font-size: 1.1em;">Write down your claim code:</p>
-            <div class="claim-code">L1-101-M1-67</div>
+            <div class="claim-code" id="claimCode">L1-101-M1-67</div>
             <p style="margin-top: 15px; font-size: 0.9em;">Show this code to your teacher!</p>
         </div>
 
@@ -766,15 +913,52 @@
 </div>
 
 <script>
-// ==================== GAME DATA ====================
-const SALARY_CAP = 136;
-const QUALITY_TARGET = 50;
+// ==================== DIFFICULTY CONFIG ====================
+const DIFFICULTY_LEVELS = {
+    1: {
+        name: "Rookie GM",
+        salaryCap: 136,
+        qualityTarget: 50,
+        minPlayers: 8,
+        minStars: 1,
+        positionReq: null,         // no position requirement
+        luxuryTaxThreshold: null,  // no luxury tax
+        hints: "full",             // full dynamic hints
+        claimCode: "L1-101-M1-67"
+    },
+    2: {
+        name: "All-Star GM",
+        salaryCap: 120,
+        qualityTarget: 55,
+        minPlayers: 8,
+        minStars: 2,
+        positionReq: { Guard: 1, Forward: 1, Center: 1 },
+        luxuryTaxThreshold: null,
+        hints: "static",           // static message, no dynamic guidance
+        claimCode: "L2-101-M1-83"
+    },
+    3: {
+        name: "Championship GM",
+        salaryCap: 110,
+        qualityTarget: 60,
+        minPlayers: 10,
+        minStars: 2,
+        positionReq: { Guard: 2, Forward: 2, Center: 1 },
+        luxuryTaxThreshold: 100,   // every $1M over $100M costs 1 quality point
+        hints: "none",             // no hints at all
+        claimCode: "L3-101-M1-99"
+    }
+};
+
+let currentDifficulty = 1;
 let selectedPlayers = [];
 
+// ==================== PLAYER DATA ====================
 const starPlayers = [
     {
         name: "Karl-Anthony Towns",
         position: "Center",
+        posCategories: ["Center"],
         salary: 53,
         quality: 10,
         emoji: "🏀",
@@ -783,6 +967,7 @@ const starPlayers = [
     {
         name: "OG Anunoby",
         position: "Forward",
+        posCategories: ["Forward"],
         salary: 40,
         quality: 10,
         emoji: "🛡️",
@@ -791,6 +976,7 @@ const starPlayers = [
     {
         name: "Jalen Brunson",
         position: "Point Guard",
+        posCategories: ["Guard"],
         salary: 35,
         quality: 10,
         emoji: "⭐",
@@ -802,6 +988,7 @@ const rolePlayers = [
     {
         name: "Mikal Bridges",
         position: "Guard/Forward",
+        posCategories: ["Guard", "Forward"],
         salary: 25,
         quality: 8,
         emoji: "🔥",
@@ -810,6 +997,7 @@ const rolePlayers = [
     {
         name: "Josh Hart",
         position: "Guard",
+        posCategories: ["Guard"],
         salary: 19,
         quality: 7,
         emoji: "💪",
@@ -818,6 +1006,7 @@ const rolePlayers = [
     {
         name: "Mitchell Robinson",
         position: "Center",
+        posCategories: ["Center"],
         salary: 13,
         quality: 6,
         emoji: "🚫",
@@ -826,6 +1015,7 @@ const rolePlayers = [
     {
         name: "Miles McBride",
         position: "Guard",
+        posCategories: ["Guard"],
         salary: 4,
         quality: 5,
         emoji: "⚡",
@@ -834,6 +1024,7 @@ const rolePlayers = [
     {
         name: "Pacome Dadiet",
         position: "Forward",
+        posCategories: ["Forward"],
         salary: 3,
         quality: 4,
         emoji: "🇫🇷",
@@ -845,6 +1036,7 @@ const freeAgents = [
     {
         name: "Isaiah Hartenstein",
         position: "Center",
+        posCategories: ["Center"],
         salary: 16,
         quality: 7,
         emoji: "🦾",
@@ -853,6 +1045,7 @@ const freeAgents = [
     {
         name: "Immanuel Quickley",
         position: "Guard",
+        posCategories: ["Guard"],
         salary: 5,
         quality: 6,
         emoji: "🎯",
@@ -861,6 +1054,7 @@ const freeAgents = [
     {
         name: "Guerschon Yabusele",
         position: "Forward",
+        posCategories: ["Forward"],
         salary: 6,
         quality: 5,
         emoji: "🇫🇷",
@@ -869,6 +1063,7 @@ const freeAgents = [
     {
         name: "Landry Shamet",
         position: "Guard",
+        posCategories: ["Guard"],
         salary: 3,
         quality: 4,
         emoji: "🎪",
@@ -876,10 +1071,11 @@ const freeAgents = [
     }
 ];
 
-const minPlayers = [
+const minPlayersList = [
     {
         name: "Tyler Kolek",
         position: "Guard",
+        posCategories: ["Guard"],
         salary: 2,
         quality: 3,
         emoji: "🎯",
@@ -888,6 +1084,7 @@ const minPlayers = [
     {
         name: "Ariel Hukporti",
         position: "Center",
+        posCategories: ["Center"],
         salary: 2,
         quality: 3,
         emoji: "🇩🇪",
@@ -896,6 +1093,7 @@ const minPlayers = [
     {
         name: "Tosan Evbuomwan",
         position: "Forward",
+        posCategories: ["Forward"],
         salary: 2,
         quality: 2,
         emoji: "🏃",
@@ -904,6 +1102,7 @@ const minPlayers = [
     {
         name: "Jericho Sims",
         position: "Center",
+        posCategories: ["Center"],
         salary: 2,
         quality: 3,
         emoji: "🦅",
@@ -911,20 +1110,132 @@ const minPlayers = [
     }
 ];
 
-// ==================== FUNCTIONS ====================
+// ==================== HELPER: Get current config ====================
+function cfg() {
+    return DIFFICULTY_LEVELS[currentDifficulty];
+}
 
+// ==================== HELPER: Count positions ====================
+function countPositions() {
+    const counts = { Guard: 0, Forward: 0, Center: 0 };
+    selectedPlayers.forEach(p => {
+        p.posCategories.forEach(cat => {
+            counts[cat] = (counts[cat] || 0) + 1;
+        });
+    });
+    return counts;
+}
+
+// ==================== HELPER: Compute luxury tax ====================
+function getLuxuryTax() {
+    if (!cfg().luxuryTaxThreshold) return 0;
+    const totalSalary = selectedPlayers.reduce((sum, p) => sum + p.salary, 0);
+    return Math.max(0, totalSalary - cfg().luxuryTaxThreshold);
+}
+
+// ==================== DIFFICULTY SELECTOR ====================
+function selectDifficulty(level) {
+    currentDifficulty = level;
+    document.querySelectorAll('.difficulty-card').forEach(c => c.classList.remove('selected'));
+    document.getElementById(`diff-${level}`).classList.add('selected');
+    renderRules();
+}
+
+// ==================== RENDER RULES (dynamic) ====================
+function renderRules() {
+    const c = cfg();
+    let rules = [];
+
+    rules.push({
+        text: `Pick at least <strong>${c.minStars} STAR PLAYER${c.minStars > 1 ? 'S' : ''}</strong> (marked with ⭐)<br>Stars are the best players!`
+    });
+
+    rules.push({
+        text: `Pick at least <strong>${c.minPlayers} TOTAL PLAYERS</strong><br>Mix stars, role players, and free agents!`
+    });
+
+    rules.push({
+        text: `Get <strong>${c.qualityTarget}+ QUALITY POINTS</strong><br>Better players = more quality points!`
+    });
+
+    rules.push({
+        text: `Stay under the <strong>$${c.salaryCap} Million</strong> salary cap<br>Add up all the salaries - don't go over!`
+    });
+
+    if (c.positionReq) {
+        const parts = Object.entries(c.positionReq).map(([pos, num]) => `${num} ${pos}${num > 1 ? 's' : ''}`);
+        rules.push({
+            text: `Your roster must include at least <strong>${parts.join(', ')}</strong><br>Build a balanced team with every position covered!`
+        });
+    }
+
+    if (c.luxuryTaxThreshold) {
+        rules.push({
+            text: `<strong>Luxury Tax:</strong> Every $1M spent over <strong>$${c.luxuryTaxThreshold}M</strong> costs you <strong>1 quality point</strong><br>Spending big has a price - choose wisely!`
+        });
+    }
+
+    const container = document.getElementById('rulesContainer');
+    container.innerHTML = rules.map((r, i) => `
+        <div class="rule">
+            <div class="rule-num">${i + 1}</div>
+            <div class="rule-text">${r.text}</div>
+        </div>
+    `).join('');
+}
+
+// ==================== SHOW GAME ====================
 function showGame() {
     document.getElementById('landingPage').classList.add('hidden');
     document.getElementById('gamePage').classList.remove('hidden');
+
+    const c = cfg();
+
+    // Set difficulty badge
+    document.getElementById('difficultyBadge').textContent = c.name.toUpperCase();
+
+    // Set dashboard targets
+    document.getElementById('starTarget').textContent = `Need at least ${c.minStars}`;
+    document.getElementById('playerTarget').textContent = `Need ${c.minPlayers} or more`;
+    document.getElementById('capLabel').textContent = `Cap: $${c.salaryCap}M`;
+
+    // Show/hide position card
+    const posCard = document.getElementById('positionCard');
+    if (c.positionReq) {
+        posCard.classList.remove('hidden');
+        const parts = Object.entries(c.positionReq).map(([pos, num]) => `${num} ${pos}${num > 1 ? 's' : ''}`);
+        document.getElementById('positionTarget').textContent = `Need: ${parts.join(', ')}`;
+    } else {
+        posCard.classList.add('hidden');
+    }
+
+    // Show/hide luxury tax card
+    const taxCard = document.getElementById('taxCard');
+    if (c.luxuryTaxThreshold) {
+        taxCard.classList.remove('hidden');
+    } else {
+        taxCard.classList.add('hidden');
+    }
+
+    // Show/hide hint box
+    const hintBox = document.getElementById('hintBox');
+    if (c.hints === 'none') {
+        hintBox.classList.add('hidden');
+    } else {
+        hintBox.classList.remove('hidden');
+    }
+
     renderPlayers();
     updateDashboard();
+    updateHint();
 }
 
+// ==================== RENDER PLAYERS ====================
 function renderPlayers() {
     renderGroup('starPlayers', starPlayers, true);
     renderGroup('rolePlayers', rolePlayers, false);
     renderGroup('freeAgents', freeAgents, false);
-    renderGroup('minPlayers', minPlayers, false);
+    renderGroup('minPlayers', minPlayersList, false);
 }
 
 function renderGroup(containerId, players, isStar) {
@@ -961,6 +1272,7 @@ function renderGroup(containerId, players, isStar) {
     });
 }
 
+// ==================== TOGGLE PLAYER ====================
 function togglePlayer(player, isStar) {
     const cardId = `player-${player.name.replace(/\s+/g, '-')}`;
     const card = document.getElementById(cardId);
@@ -978,42 +1290,88 @@ function togglePlayer(player, isStar) {
     updateHint();
 }
 
+// ==================== UPDATE DASHBOARD ====================
 function updateDashboard() {
+    const c = cfg();
     const starCount = selectedPlayers.filter(p => p.isStar).length;
     const totalPlayers = selectedPlayers.length;
     const totalSalary = selectedPlayers.reduce((sum, p) => sum + p.salary, 0);
-    const totalQuality = selectedPlayers.reduce((sum, p) => sum + p.quality, 0);
+    const rawQuality = selectedPlayers.reduce((sum, p) => sum + p.quality, 0);
+    const taxPenalty = getLuxuryTax();
+    const effectiveQuality = rawQuality - taxPenalty;
 
     document.getElementById('starCount').textContent = starCount;
     document.getElementById('playerCount').textContent = totalPlayers;
     document.getElementById('totalSalary').textContent = `$${totalSalary}M`;
-    document.getElementById('qualityPoints').textContent = totalQuality;
+    document.getElementById('qualityPoints').textContent = c.luxuryTaxThreshold ? effectiveQuality : rawQuality;
 
     // Update quality status
+    const qualityTarget = c.qualityTarget;
+    const displayQuality = c.luxuryTaxThreshold ? effectiveQuality : rawQuality;
     const qualityStatus = document.getElementById('qualityStatus');
-    if (totalQuality >= QUALITY_TARGET) {
+    if (displayQuality >= qualityTarget) {
         qualityStatus.textContent = "✓ Great team!";
         qualityStatus.className = "quality-indicator quality-good";
     } else {
-        qualityStatus.textContent = `Need ${QUALITY_TARGET - totalQuality} more`;
-        qualityStatus.className = totalQuality >= QUALITY_TARGET * 0.8 ? "quality-indicator quality-warning" : "quality-indicator quality-danger";
+        qualityStatus.textContent = `Need ${qualityTarget - displayQuality} more`;
+        qualityStatus.className = displayQuality >= qualityTarget * 0.8 ? "quality-indicator quality-warning" : "quality-indicator quality-danger";
     }
 
     // Update salary progress bar
-    const percentage = Math.min((totalSalary / SALARY_CAP) * 100, 100);
+    const salaryCap = c.salaryCap;
+    const percentage = Math.min((totalSalary / salaryCap) * 100, 100);
     const progressBar = document.getElementById('progressBar');
     progressBar.style.width = `${percentage}%`;
     progressBar.textContent = `${Math.round(percentage)}%`;
 
     progressBar.className = 'progress-fill';
-    if (totalSalary > SALARY_CAP) {
+    if (totalSalary > salaryCap) {
         progressBar.classList.add('progress-danger');
-    } else if (totalSalary > SALARY_CAP * 0.9) {
+    } else if (totalSalary > salaryCap * 0.9) {
         progressBar.classList.add('progress-warning');
+    }
+
+    // Update position tracker (Level 2+)
+    if (c.positionReq) {
+        const posCounts = countPositions();
+        const tracker = document.getElementById('positionTracker');
+        tracker.innerHTML = Object.entries(c.positionReq).map(([pos, needed]) => {
+            const have = posCounts[pos] || 0;
+            const met = have >= needed;
+            return `<span class="pos-item ${met ? 'pos-met' : 'pos-unmet'}">${pos}: ${have}/${needed}</span>`;
+        }).join('');
+    }
+
+    // Update luxury tax (Level 3)
+    if (c.luxuryTaxThreshold) {
+        document.getElementById('taxPenalty').textContent = `-${taxPenalty} pts`;
+        const taxStatus = document.getElementById('taxStatus');
+        if (taxPenalty > 0) {
+            taxStatus.textContent = `$${totalSalary - c.luxuryTaxThreshold}M over tax line`;
+            taxStatus.className = 'tax-warning';
+        } else {
+            taxStatus.textContent = 'No tax yet';
+            taxStatus.className = 'tax-safe';
+        }
     }
 }
 
+// ==================== UPDATE HINT ====================
 function updateHint() {
+    const c = cfg();
+    const hintElement = document.getElementById('hintText');
+    if (!hintElement) return;
+
+    // Level 3: hints are hidden entirely (box is already hidden)
+    if (c.hints === 'none') return;
+
+    // Level 2: static message
+    if (c.hints === 'static') {
+        hintElement.textContent = "You're on your own, All-Star! Check the rules if you need a refresher.";
+        return;
+    }
+
+    // Level 1: full dynamic hints
     const starCount = selectedPlayers.filter(p => p.isStar).length;
     const totalPlayers = selectedPlayers.length;
     const totalSalary = selectedPlayers.reduce((sum, p) => sum + p.salary, 0);
@@ -1023,58 +1381,94 @@ function updateHint() {
 
     if (totalPlayers === 0) {
         hint = "Click on players to start building your team!";
-    } else if (starCount === 0) {
-        hint = "Great start! Now pick at least ONE STAR PLAYER (⭐)!";
-    } else if (totalPlayers < 8) {
-        hint = `Good job! You need ${8 - totalPlayers} more players!`;
-    } else if (totalQuality < QUALITY_TARGET) {
-        hint = `You need ${QUALITY_TARGET - totalQuality} more quality points. Try adding better players!`;
-    } else if (totalSalary > SALARY_CAP) {
-        hint = `You're over the cap by $${totalSalary - SALARY_CAP}M! Try cheaper players!`;
+    } else if (starCount < c.minStars) {
+        hint = `Great start! Now pick at least ${c.minStars} STAR PLAYER${c.minStars > 1 ? 'S' : ''} (⭐)!`;
+    } else if (totalPlayers < c.minPlayers) {
+        hint = `Good job! You need ${c.minPlayers - totalPlayers} more players!`;
+    } else if (totalQuality < c.qualityTarget) {
+        hint = `You need ${c.qualityTarget - totalQuality} more quality points. Try adding better players!`;
+    } else if (totalSalary > c.salaryCap) {
+        hint = `You're over the cap by $${totalSalary - c.salaryCap}M! Try cheaper players!`;
     } else {
         hint = "Looking amazing! Click 'CHECK MY TEAM' to see if you win!";
     }
 
-    const hintElement = document.getElementById('hintText');
-    if (hintElement) {
-        hintElement.textContent = hint;
-    }
+    hintElement.textContent = hint;
 }
 
+// ==================== CHECK TEAM ====================
 function checkTeam() {
+    const c = cfg();
     const starCount = selectedPlayers.filter(p => p.isStar).length;
     const totalPlayers = selectedPlayers.length;
     const totalSalary = selectedPlayers.reduce((sum, p) => sum + p.salary, 0);
-    const totalQuality = selectedPlayers.reduce((sum, p) => sum + p.quality, 0);
+    const rawQuality = selectedPlayers.reduce((sum, p) => sum + p.quality, 0);
+    const taxPenalty = getLuxuryTax();
+    const effectiveQuality = rawQuality - taxPenalty;
+    const displayQuality = c.luxuryTaxThreshold ? effectiveQuality : rawQuality;
 
     let errors = [];
 
-    if (starCount < 1) {
-        errors.push(`❌ You need at least 1 star player (you have ${starCount})`);
+    if (starCount < c.minStars) {
+        errors.push(`❌ You need at least ${c.minStars} star player${c.minStars > 1 ? 's' : ''} (you have ${starCount})`);
     }
-    if (totalPlayers < 8) {
-        errors.push(`❌ You need at least 8 players (you have ${totalPlayers})`);
+    if (totalPlayers < c.minPlayers) {
+        errors.push(`❌ You need at least ${c.minPlayers} players (you have ${totalPlayers})`);
     }
-    if (totalQuality < QUALITY_TARGET) {
-        errors.push(`❌ You need ${QUALITY_TARGET} quality points (you have ${totalQuality})`);
+    if (displayQuality < c.qualityTarget) {
+        let msg = `❌ You need ${c.qualityTarget} quality points (you have ${displayQuality})`;
+        if (taxPenalty > 0) {
+            msg += ` — luxury tax is costing you ${taxPenalty} points!`;
+        }
+        errors.push(msg);
     }
-    if (totalSalary > SALARY_CAP) {
-        errors.push(`❌ You're over the salary cap by $${totalSalary - SALARY_CAP}M!`);
+    if (totalSalary > c.salaryCap) {
+        errors.push(`❌ You're over the salary cap by $${totalSalary - c.salaryCap}M!`);
+    }
+
+    // Position requirements
+    if (c.positionReq) {
+        const posCounts = countPositions();
+        Object.entries(c.positionReq).forEach(([pos, needed]) => {
+            const have = posCounts[pos] || 0;
+            if (have < needed) {
+                errors.push(`❌ You need at least ${needed} ${pos}${needed > 1 ? 's' : ''} (you have ${have})`);
+            }
+        });
     }
 
     if (errors.length > 0) {
-        alert("Not quite ready! 🤔\n\n" + errors.join('\n\n') + "\n\nKeep trying, you've got this! Check the hints above.");
+        alert("Not quite ready! 🤔\n\n" + errors.join('\n\n') + "\n\nKeep trying, you've got this!");
     } else {
         showVictory();
     }
 }
 
+// ==================== SHOW VICTORY ====================
 function showVictory() {
+    const c = cfg();
     const totalSalary = selectedPlayers.reduce((sum, p) => sum + p.salary, 0);
-    const totalQuality = selectedPlayers.reduce((sum, p) => sum + p.quality, 0);
+    const rawQuality = selectedPlayers.reduce((sum, p) => sum + p.quality, 0);
+    const taxPenalty = getLuxuryTax();
+    const effectiveQuality = rawQuality - taxPenalty;
+
     const playerList = selectedPlayers
         .map(p => `${p.isStar ? '⭐ ' : ''}${p.name} - $${p.salary}M (${p.quality} quality pts)`)
         .join('<br>');
+
+    let taxBreakdown = '';
+    if (c.luxuryTaxThreshold && taxPenalty > 0) {
+        taxBreakdown = `
+            <div style="margin-top: 10px; padding: 10px; background: #FFF3E0; border-radius: 8px;">
+                <p style="font-size: 1em; color: #666;">Raw Quality Points:</p>
+                <p style="font-size: 1.2em; font-weight: 700; color: #2196F3;">${rawQuality}</p>
+                <p style="font-size: 1em; color: #666; margin-top: 5px;">Luxury Tax Penalty:</p>
+                <p style="font-size: 1.2em; font-weight: 700; color: #f44336;">-${taxPenalty} pts ($${totalSalary - c.luxuryTaxThreshold}M over $${c.luxuryTaxThreshold}M)</p>
+                <p style="font-size: 1em; color: #666; margin-top: 5px;">Net Quality:</p>
+                <p style="font-size: 1.2em; font-weight: 700; color: #4CAF50;">${effectiveQuality} pts</p>
+            </div>
+        `;
+    }
 
     document.getElementById('teamSummary').innerHTML = `
         <h3 style="color: #006BB6; margin-bottom: 10px;">Your Championship Team:</h3>
@@ -1091,26 +1485,33 @@ function showVictory() {
             </div>
             <div>
                 <p style="font-size: 1.1em; color: #666;">Quality Points:</p>
-                <p style="font-size: 1.5em; font-weight: 700; color: #2196F3;">${totalQuality}</p>
+                <p style="font-size: 1.5em; font-weight: 700; color: #2196F3;">${c.luxuryTaxThreshold ? effectiveQuality : rawQuality}</p>
             </div>
             <div>
                 <p style="font-size: 1.1em; color: #666;">Total Salary:</p>
                 <p style="font-size: 1.5em; font-weight: 700; color: #4CAF50;">$${totalSalary}M</p>
             </div>
         </div>
+        ${taxBreakdown}
         <p style="font-size: 1.2em; margin-top: 15px; color: #F58426; font-weight: 700;">
-            💰 You saved $${SALARY_CAP - totalSalary}M under the cap!
+            💰 You saved $${c.salaryCap - totalSalary}M under the cap!
         </p>
     `;
+
+    // Set difficulty badge and claim code
+    document.getElementById('victoryDifficulty').textContent = c.name.toUpperCase();
+    document.getElementById('claimCode').textContent = c.claimCode;
 
     document.getElementById('victoryModal').classList.add('show');
 }
 
+// ==================== CLOSE MODAL ====================
 function closeModal() {
     document.getElementById('victoryModal').classList.remove('show');
     resetGame();
 }
 
+// ==================== RESET GAME ====================
 function resetGame() {
     selectedPlayers = [];
     document.querySelectorAll('.player-card').forEach(card => {
@@ -1119,6 +1520,9 @@ function resetGame() {
     updateDashboard();
     updateHint();
 }
+
+// ==================== INIT: Render rules on page load ====================
+renderRules();
 </script>
 
 </body>
