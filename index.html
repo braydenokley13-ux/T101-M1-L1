@@ -358,12 +358,17 @@
         .progress-fill {
             height: 100%;
             transition: all 0.5s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-weight: 700;
             background: linear-gradient(90deg, #4CAF50 0%, #66BB6A 100%);
+            border-radius: 15px;
+        }
+
+        .progress-label {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.78em;
+            font-weight: 600;
+            color: #666;
+            margin-top: 5px;
         }
 
         .progress-warning {
@@ -396,8 +401,9 @@
         .position-tracker {
             display: flex;
             justify-content: space-around;
+            flex-wrap: wrap;
             margin-top: 10px;
-            gap: 5px;
+            gap: 6px;
         }
 
         .pos-item {
@@ -545,6 +551,8 @@
             color: #006BB6;
             text-align: center;
             margin-bottom: 5px;
+            word-break: break-word;
+            line-height: 1.15;
         }
 
         .player-position {
@@ -656,13 +664,15 @@
             height: 100%;
             background: rgba(0, 0, 0, 0.8);
             z-index: 1000;
-            align-items: center;
-            justify-content: center;
             overflow-y: auto;
+            padding: 30px 20px;
         }
 
         .modal.show {
             display: flex !important;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
         }
 
         .modal-content {
@@ -671,8 +681,9 @@
             border-radius: 20px;
             text-align: center;
             max-width: 700px;
+            width: 100%;
             animation: pop 0.5s ease-out;
-            margin: 20px;
+            margin: auto;
         }
 
         @keyframes pop {
@@ -740,8 +751,78 @@
             letter-spacing: 1px;
         }
 
+        /* ========== ACCESSIBILITY & FOCUS ========== */
+        .player-card:focus-visible {
+            outline: 3px solid #F58426;
+            outline-offset: 3px;
+        }
+
+        /* ========== ERROR BANNER ========== */
+        .error-banner {
+            background: rgba(255, 235, 238, 0.97);
+            border: 3px solid #f44336;
+            border-radius: 15px;
+            padding: 20px 25px;
+            margin: 0 0 20px 0;
+            animation: shake 0.4s ease-out;
+        }
+
+        .error-banner-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.8em;
+            color: #d32f2f;
+            margin-bottom: 10px;
+        }
+
+        .error-item {
+            padding: 6px 0;
+            color: #333;
+            font-size: 1em;
+            font-weight: 600;
+            border-bottom: 1px solid rgba(244, 67, 54, 0.2);
+        }
+
+        .error-item:last-child {
+            border-bottom: none;
+        }
+
+        .error-banner-footer {
+            margin-top: 10px;
+            font-size: 0.95em;
+            color: #555;
+            font-weight: 600;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            20%       { transform: translateX(-8px); }
+            40%       { transform: translateX(8px); }
+            60%       { transform: translateX(-5px); }
+            80%       { transform: translateX(5px); }
+        }
+
+        /* ========== STAT FLASH ANIMATION ========== */
+        @keyframes statFlash {
+            0%   { transform: scale(1); }
+            50%  { transform: scale(1.12); color: #F58426; }
+            100% { transform: scale(1); }
+        }
+
+        .stat-flash {
+            animation: statFlash 0.3s ease-out;
+        }
+
+        /* ========== TABLET RESPONSIVE (600-900px) ========== */
+        @media (max-width: 900px) and (min-width: 601px) {
+            .difficulty-cards { grid-template-columns: repeat(2, 1fr); }
+            .players-grid { grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); }
+            .game-title { font-size: 3em; }
+            .start-btn { font-size: 2em; padding: 15px 40px; }
+            .modal-content { padding: 30px 25px; }
+        }
+
         /* Mobile Responsive */
-        @media (max-width: 768px) {
+        @media (max-width: 600px) {
             .game-title { font-size: 2.5em; }
             .rules-box { padding: 20px; }
             .rule { flex-direction: column; text-align: center; }
@@ -750,6 +831,10 @@
             .dashboard { grid-template-columns: 1fr; }
             .claim-code { font-size: 2em; }
             .difficulty-cards { grid-template-columns: 1fr; }
+            .modal-content { padding: 30px 20px; }
+            .start-btn { font-size: 2em; padding: 15px 35px; }
+            .game-header h1 { font-size: 2em; }
+            .section-title { font-size: 1.8em; }
         }
     </style>
 </head>
@@ -838,9 +923,12 @@
             <h3>💰 Salary Cap</h3>
             <div class="stat-value" id="totalSalary">$0M</div>
             <div class="progress-bar">
-                <div class="progress-fill" id="progressBar" style="width: 0%;">0%</div>
+                <div class="progress-fill" id="progressBar" style="width: 0%;"></div>
             </div>
-            <p id="capLabel">Cap: $136M</p>
+            <div class="progress-label">
+                <span id="progressPercent">0% used</span>
+                <span id="capLabel">$136M left</span>
+            </div>
         </div>
 
         <!-- Position card (hidden on Level 1) -->
@@ -879,6 +967,13 @@
     <!-- Minimum Contracts -->
     <h2 class="section-title">⚡ MINIMUM CONTRACTS - Budget Options!</h2>
     <div class="players-grid" id="minPlayers"></div>
+
+    <!-- Error Banner (shown instead of alert) -->
+    <div class="error-banner hidden" id="errorBanner" role="alert" aria-live="polite">
+        <div class="error-banner-title">🤔 Not Quite Ready!</div>
+        <div id="errorList"></div>
+        <div class="error-banner-footer">Keep going — you've got this! 💪</div>
+    </div>
 
     <!-- Action Buttons -->
     <div class="actions">
@@ -1197,7 +1292,6 @@ function showGame() {
     // Set dashboard targets
     document.getElementById('starTarget').textContent = `Need at least ${c.minStars}`;
     document.getElementById('playerTarget').textContent = `Need ${c.minPlayers} or more`;
-    document.getElementById('capLabel').textContent = `Cap: $${c.salaryCap}M`;
 
     // Show/hide position card
     const posCard = document.getElementById('positionCard');
@@ -1247,6 +1341,15 @@ function renderGroup(containerId, players, isStar) {
         card.className = 'player-card';
         card.onclick = () => togglePlayer(player, isStar);
         card.id = `player-${player.name.replace(/\s+/g, '-')}`;
+        card.setAttribute('tabindex', '0');
+        card.setAttribute('role', 'button');
+        card.setAttribute('aria-label', `${player.name}, ${player.position}, $${player.salary}M salary, ${player.quality} quality points`);
+        card.onkeydown = (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                togglePlayer(player, isStar);
+            }
+        };
 
         card.innerHTML = `
             ${isStar ? '<div class="star-badge">⭐</div>' : ''}
@@ -1286,6 +1389,9 @@ function togglePlayer(player, isStar) {
         card.classList.add('selected');
     }
 
+    // Clear error banner on any roster change
+    document.getElementById('errorBanner').classList.add('hidden');
+
     updateDashboard();
     updateHint();
 }
@@ -1300,10 +1406,22 @@ function updateDashboard() {
     const taxPenalty = getLuxuryTax();
     const effectiveQuality = rawQuality - taxPenalty;
 
-    document.getElementById('starCount').textContent = starCount;
-    document.getElementById('playerCount').textContent = totalPlayers;
-    document.getElementById('totalSalary').textContent = `$${totalSalary}M`;
-    document.getElementById('qualityPoints').textContent = c.luxuryTaxThreshold ? effectiveQuality : rawQuality;
+    // Helper: flash a stat element when value changes
+    function flashStat(id, value) {
+        const el = document.getElementById(id);
+        if (el.textContent !== String(value)) {
+            el.classList.remove('stat-flash');
+            el.offsetHeight; // force reflow to restart animation
+            el.classList.add('stat-flash');
+            setTimeout(() => el.classList.remove('stat-flash'), 350);
+        }
+        el.textContent = value;
+    }
+
+    flashStat('starCount', starCount);
+    flashStat('playerCount', totalPlayers);
+    flashStat('totalSalary', `$${totalSalary}M`);
+    flashStat('qualityPoints', c.luxuryTaxThreshold ? effectiveQuality : rawQuality);
 
     // Update quality status
     const qualityTarget = c.qualityTarget;
@@ -1322,13 +1440,25 @@ function updateDashboard() {
     const percentage = Math.min((totalSalary / salaryCap) * 100, 100);
     const progressBar = document.getElementById('progressBar');
     progressBar.style.width = `${percentage}%`;
-    progressBar.textContent = `${Math.round(percentage)}%`;
 
     progressBar.className = 'progress-fill';
     if (totalSalary > salaryCap) {
         progressBar.classList.add('progress-danger');
     } else if (totalSalary > salaryCap * 0.9) {
         progressBar.classList.add('progress-warning');
+    }
+
+    // Update progress label (shown below the bar)
+    const remaining = salaryCap - totalSalary;
+    document.getElementById('progressPercent').textContent = `${Math.round(percentage)}% used`;
+    if (remaining >= 0) {
+        document.getElementById('capLabel').textContent = `$${remaining}M left`;
+    } else {
+        document.getElementById('capLabel').style.color = '#f44336';
+        document.getElementById('capLabel').textContent = `$${-remaining}M OVER!`;
+    }
+    if (remaining >= 0) {
+        document.getElementById('capLabel').style.color = '';
     }
 
     // Update position tracker (Level 2+)
@@ -1437,9 +1567,19 @@ function checkTeam() {
         });
     }
 
+    const errorBanner = document.getElementById('errorBanner');
     if (errors.length > 0) {
-        alert("Not quite ready! 🤔\n\n" + errors.join('\n\n') + "\n\nKeep trying, you've got this!");
+        document.getElementById('errorList').innerHTML = errors.map(e =>
+            `<div class="error-item">${e}</div>`
+        ).join('');
+        errorBanner.classList.remove('hidden');
+        // Re-trigger the shake animation
+        errorBanner.style.animation = 'none';
+        errorBanner.offsetHeight; // force reflow
+        errorBanner.style.animation = '';
+        errorBanner.scrollIntoView({ behavior: 'smooth', block: 'center' });
     } else {
+        errorBanner.classList.add('hidden');
         showVictory();
     }
 }
@@ -1509,6 +1649,9 @@ function showVictory() {
 function closeModal() {
     document.getElementById('victoryModal').classList.remove('show');
     resetGame();
+    // Return to landing page so the player can pick a new difficulty
+    document.getElementById('gamePage').classList.add('hidden');
+    document.getElementById('landingPage').classList.remove('hidden');
 }
 
 // ==================== RESET GAME ====================
@@ -1517,6 +1660,7 @@ function resetGame() {
     document.querySelectorAll('.player-card').forEach(card => {
         card.classList.remove('selected');
     });
+    document.getElementById('errorBanner').classList.add('hidden');
     updateDashboard();
     updateHint();
 }
